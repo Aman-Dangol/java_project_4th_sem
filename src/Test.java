@@ -5,23 +5,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Platform extends JFrame implements KeyListener, ActionListener {
+public class Test  extends JFrame implements KeyListener, ActionListener {
     Player player = new Player();
     Timer timer = new Timer(10,this);
 
-    Platform(){
-        setTitle("true");
+    Test(){
+        setTitle("test");
         setSize(new Dimension(500,500));
         getContentPane().setPreferredSize(new Dimension(500,500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);
         setLayout(null);
         add(player);
-        player.setBounds(50,(getHeight()-100),100,100);
+        player.setBounds(50,(getHeight()-137),100,100);
         setLocationRelativeTo(null);
         setVisible(true);
-
-
     }
 
     @Override
@@ -44,4 +41,5 @@ public class Platform extends JFrame implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
 //        player.falling();
     }
+
 }
