@@ -1,14 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Player extends JLabel {
+public class Player extends JLabel{
     int falling = 2;
     int  gravity = 1;
 
     Player(){
-
-
-
     }
 
     @Override
