@@ -6,6 +6,9 @@ public class Player extends JLabel {
     int  gravity = 1;
 
     Player(){
+
+
+
     }
 
     @Override
