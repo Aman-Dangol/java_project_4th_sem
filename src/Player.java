@@ -6,6 +6,9 @@ public class Player extends JPanel {
     int  gravity = 1;
 
     Player(){
+
+
+
     }
 
     @Override
