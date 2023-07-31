@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Player extends JPanel {
+public class Player extends JLabel {
     int falling = 2;
     int  gravity = 1;
 
@@ -11,13 +11,18 @@ public class Player extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        System.out.println(getHeight());
-        g.fillOval(0,0,getWidth(),getHeight());
+        g.fillOval(0,0,getWidth()-1,getHeight()-1);
 
     }
     void falling(){
-
+        System.out.println(getY());
         setLocation(getX(),getY()+falling);
         falling+=gravity;
+        if (getY()>=363){
+                setLocation(getX(),363);
+        }
+    }
+    void jump(){
+        falling=-10;
     }
 }

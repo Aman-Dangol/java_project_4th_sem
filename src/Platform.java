@@ -7,18 +7,18 @@ import java.awt.event.KeyListener;
 
 public class Platform extends JFrame implements KeyListener, ActionListener {
     Player player = new Player();
-    Timer timer = new Timer(10,this);
+    Timer timer = new Timer(45,this);
 
     Platform(){
-        setTitle("true");
-        setSize(new Dimension(500,500));
-        getContentPane().setPreferredSize(new Dimension(500,500));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setTitle("game");//name shows in title bar
+        setSize(new Dimension(500,500)); //setting the size of frame
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//closes the jframe after the x(title bar) button is pressed
         setLayout(null);
         add(player);
-        player.setBounds(50,(getHeight()-100),100,100);
-        setLocationRelativeTo(null);
+        timer.start();
+        addKeyListener(this);
+        player.setBounds(50,(getHeight()-137),100,100);//adding player component in JFrame
+        setLocationRelativeTo(null);//centering the frame
         setVisible(true);
 
 
@@ -27,13 +27,16 @@ public class Platform extends JFrame implements KeyListener, ActionListener {
     @Override
     public void keyTyped(KeyEvent e) {
 
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyChar()==' '){
+            player.jump();
+        }
 
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {
@@ -42,6 +45,7 @@ public class Platform extends JFrame implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        player.falling();
+        player.falling();
     }
 }
+
