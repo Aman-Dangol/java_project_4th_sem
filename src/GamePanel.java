@@ -82,14 +82,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         if (up==true){
             y-=speed;
         }
-      else  if (down==true){
+       if (down==true){
                 y += speed;
 
         }
-        else if (left==true){
+         if (left==true){
             x-=speed;
         }
-        else if (right==true){
+         if (right==true){
             x+=speed;
         }
     }
@@ -104,13 +104,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         if (e.getKeyCode()==KeyEvent.VK_W){
             up=true;
         }
-       else if (e.getKeyCode()==KeyEvent.VK_S) {
+        if (e.getKeyCode()==KeyEvent.VK_S) {
            down=true;
         }
-       else if (e.getKeyCode()==KeyEvent.VK_D) {
+        if (e.getKeyCode()==KeyEvent.VK_D) {
            right=true;
        }
-       else if (e.getKeyCode()==KeyEvent.VK_A){
+        if (e.getKeyCode()==KeyEvent.VK_A){
            left=true;
         }
 
