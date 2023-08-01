@@ -46,6 +46,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         g2d.dispose();
     }
 
+    void falling(){
+        System.out.println(y);
+        if(y<height-tileSize){
+            y += 1;
+        }
+    }
+
+
     @Override
     public void run() {
         double drawInterval=1000/FPS;//draw screen avery 0.01666 times==draw screen 60 times per second
@@ -53,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         while (true) {//as long as gameThread obj exists it repeats the process,core component go game
             //update character position and drawing with updated information
             update();
+            falling();
             repaint();
             try {
                 double remainingTime = nextDrawTime - System.currentTimeMillis();
@@ -74,7 +83,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             y-=speed;
         }
       else  if (down==true){
-            y+=speed;
+                y += speed;
+
         }
         else if (left==true){
             x-=speed;
@@ -110,6 +120,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public void keyReleased(KeyEvent e) {
             if (e.getKeyCode()==KeyEvent.VK_W){
                 up=false;
+                speed=4;
             }
             else if (e.getKeyCode()==KeyEvent.VK_S) {
                 down=false;
@@ -120,7 +131,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             else if (e.getKeyCode()==KeyEvent.VK_A){
                 left=false;
             }
-
         }
 
 }
