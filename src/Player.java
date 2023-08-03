@@ -1,28 +1,40 @@
-import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 
-public class Player extends JLabel{
-    int falling = 2;
-    int  gravity = 1;
-
-    Player(){
+public class Player extends Entity{
+    GamePanel gamePanel;
+    Player(GamePanel gp){
+        x=100;
+        y=100;
+        gamePanel=gp;
     }
-
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        g.fillOval(0,0,getWidth()-1,getHeight()-1);
+    void update(String direction){
+        if(direction=="up"){
+            y-=speed;
+        }
+        if(direction=="down"){
+            y+=speed;
+        }
+        if(direction=="left"){
+            x-=speed;
+        }
+        if(direction=="right"){
+            x+=speed;
+        }
 
     }
     void falling(){
-        System.out.println(getY());
-        setLocation(getX(),getY()+falling);
-        falling+=gravity;
-        if (getY()>=363){
-                setLocation(getX(),363);
+        if(y<gamePanel.height-gamePanel.tileSize){
+            y += 2;
         }
+        else
+            y= gamePanel.height-gamePanel.tileSize;
+        System.out.println(y);
+
     }
-    void jump(){
-        falling=-10;
+    void draw(Graphics2D g2d){
+        g2d.fillRect(x,y, gamePanel.tileSize, gamePanel.tileSize);
+        g2d.dispose();
     }
+
 }
