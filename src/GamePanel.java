@@ -92,12 +92,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
-        if (e.getKeyCode()==KeyEvent.VK_W){
+        if (e.getKeyCode()==KeyEvent.VK_SPACE){
             up=true;
         }
-        if (e.getKeyCode()==KeyEvent.VK_S) {
-           down=true;
-        }
+//        if (e.getKeyCode()==KeyEvent.VK_S) {
+//           down=true;
+//        }
         if (e.getKeyCode()==KeyEvent.VK_D) {
            right=true;
        }
@@ -109,12 +109,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-            if (e.getKeyCode()==KeyEvent.VK_W){
+            if (e.getKeyCode()==KeyEvent.VK_SPACE){
                 up=false;
             }
-            else if (e.getKeyCode()==KeyEvent.VK_S) {
-                down=false;
-            }
+//            else if (e.getKeyCode()==KeyEvent.VK_S) {
+//                down=false;
+//            }
             else if (e.getKeyCode()==KeyEvent.VK_D) {
                 right=false;
             }

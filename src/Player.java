@@ -41,6 +41,15 @@ public class Player extends Entity{
         if(direction=="right"){
             x+=speed;
         }
+        spriteCounter++;
+        if (spriteCounter>12){
+            if (spriteNum==1){
+                spriteNum=2;
+            }else {
+                spriteNum=1;
+            }
+            spriteCounter=0;
+        }
 
     }
     void jump(){
@@ -62,7 +71,6 @@ public class Player extends Entity{
         BufferedImage image = null;
         switch (direction){
             case "up":
-
                 if (prevDirection=="left"){
                     image=left1;
                 }else if (prevDirection=="right"){
@@ -71,13 +79,21 @@ public class Player extends Entity{
 
                 break;
             case "left":
-                image=left1;
+                if (spriteNum==1){
+                    image=left1;
+                }else {
+                    image=left2;
+                }
                 prevDirection="left";
                 break;
             case "right":
-                image=right1;
+                if (spriteNum==1){
+                    image=right1;
+                }
+                if (spriteNum==2){
+                    image=right2;
+                }
                 prevDirection="right";
-
                 break;
 
         }

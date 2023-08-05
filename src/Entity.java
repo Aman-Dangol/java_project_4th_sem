@@ -8,6 +8,9 @@ public class Entity {
     int jump =-3;
     String direction;
 
+
+    int spriteCounter=0;
+    int spriteNum=1;
     BufferedImage left1,left2,right1,right2;
 
 }
