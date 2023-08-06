@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -28,7 +29,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     GamePanel(){
         setPreferredSize(new Dimension(width,height));
-        setBackground(Color.green);
        thread = new Thread(this);
         addKeyListener(this);
         setFocusable(true);
