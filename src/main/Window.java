@@ -1,3 +1,5 @@
+package main;
+
 import javax.swing.*;
 
 public class Window extends JFrame {
@@ -10,10 +12,12 @@ public class Window extends JFrame {
         pack();
         setLocationRelativeTo(null);//centering the frame
         setVisible(true);
+        gamePanel.startingThread();
 
 
     }
 
 
 }
+
 
