@@ -5,14 +5,23 @@ import java.awt.image.BufferedImage;
 public class Entity {
     public int x ;
     public int y;
-    int speed=5;
-    int fallingSpeed = 10;
-    int jump =-3;
-    String direction;
+    public int speed=5;
+    public int fallingSpeed = 10;
+    public int jump =-3;
+    public String direction;
 
 
-    int spriteCounter=0;
-    int spriteNum=1;
-    BufferedImage up1,up2,up3,left1,left2,left3,right1,right2,right3,down;
+    public int spriteCounter=0;
+    public int spriteNum=1;
+    BufferedImage up1;
+    BufferedImage up2;
+    BufferedImage up3;
+    protected BufferedImage left1;
+    public BufferedImage left2;
+    BufferedImage left3;
+    public BufferedImage right1;
+    public BufferedImage right2;
+    BufferedImage right3;
+    BufferedImage down;
 
 }

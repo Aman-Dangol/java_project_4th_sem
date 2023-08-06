@@ -3,8 +3,9 @@ import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import entity.Entity;
 
-public class Player extends Entity{
+public class Player extends Entity {
     GamePanel gamePanel;
 
     String prevDirection="right";

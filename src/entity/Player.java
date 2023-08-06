@@ -81,7 +81,8 @@ public class Player extends Entity {
             if (spriteCounter > 11) {
                 if (spriteNum == 1) {//default spriteNum is 1
                     spriteNum = 2;
-                } else if (spriteNum == 2) {    spriteNum = 3;
+                } else if (spriteNum == 2) {
+                    spriteNum = 3;
                     spriteNum = 3;
 
                 } else if (spriteNum==3) {
@@ -98,17 +99,18 @@ public class Player extends Entity {
         fallingSpeed=jump;
         y+=fallingSpeed;
     }
-//    public void falling(){
-//        if(y<gamePanel.height-gamePanel.tileSize) {
-//            y += fallingSpeed;
-//            fallingSpeed++;
-//
-////        }
-//        else {
-//            y = gamePanel.height - gamePanel.tileSize;
-//        }
-//
-//    }
+    public void falling() {
+        if (y < gamePanel.height - gamePanel.tileSize) {
+            y += fallingSpeed;
+            fallingSpeed++;
+
+    }
+        else{
+                y = gamePanel.height - gamePanel.tileSize;
+            }
+
+        }
+
     public void draw(Graphics2D g2d){
         BufferedImage image = null;
 //        switch (direction){
