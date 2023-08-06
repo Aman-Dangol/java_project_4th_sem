@@ -15,7 +15,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
 
-    String prevDirection="right";
+    String prevDirection="left";
 
 
     public Player(GamePanel gp,KeyHandler keyH){
@@ -29,7 +29,7 @@ public class Player extends Entity {
 
         setDefaultValues();
         getPlayerImage();
-        direction="right";
+        direction="left";
 
 
     }
