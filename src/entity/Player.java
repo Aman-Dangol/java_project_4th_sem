@@ -34,7 +34,6 @@ public class Player extends Entity {
         x=gamePanel.tileSize*20;
         y=gamePanel.tileSize*11;
         speed=4;
-        direction="right";
 
     }
     void getPlayerImage(){
@@ -54,8 +53,7 @@ public class Player extends Entity {
     }
     public void update(){
             if (keyH.up == true) {
-                direction = "up";
-                y-= speed;
+                jump();
             }
             if (keyH.down == true) {
                 direction = "down";
@@ -73,7 +71,7 @@ public class Player extends Entity {
             }
             //60FPS,so every 11 frame,it changes the image
             spriteCounter++;
-            //if spritCounter or every 11 frame >11, spritcounter=0 and count again ;
+            //if spriteCounter or every 11 frame >11, spriteCounter=0 and count again ;
             if (spriteCounter > 12) {
                 if (spriteNum == 1) {//default spriteNum is 1
                     spriteNum = 2;
