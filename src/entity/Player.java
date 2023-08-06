@@ -15,6 +15,8 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
 
+    String prevDirection="right";
+
 
     public Player(GamePanel gp,KeyHandler keyH){
 
@@ -57,17 +59,22 @@ public class Player extends Entity {
                 direction="up";
                 jump();
             }
+            if (keyH.up==false){
+                direction=prevDirection;
+            }
             if (keyH.down == true) {
                 direction = "down";
                 y+= speed;
             }
             if (keyH.left == true) {
                 direction = "left";
+                prevDirection="left";
                 x -= speed;
             }
             if (keyH.right == true) {
                 //direction is for changing img according to the arrow
                 direction = "right";
+                prevDirection="right";
                 //helps to increase the x-axis if right key is pressed
                 x+= speed;
             }
@@ -108,14 +115,14 @@ public class Player extends Entity {
         BufferedImage image = null;
         switch (direction){
             case "up":
-                if(spriteNum==1){
+                if (spriteNum == 1) {
                     image = up1;
                 }
-                if(spriteNum==2){
+                if (spriteNum == 2) {
                     image = up2;
                 }
-                if (spriteNum==3){
-                    image=up2;
+                if (spriteNum == 3) {
+                    image = up2;
                 }
                 break;
             case "down":
