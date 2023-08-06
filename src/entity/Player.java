@@ -41,8 +41,10 @@ public class Player extends Entity {
     }
     void getPlayerImage(){
         try {
-            up1= ImageIO.read(getClass().getResourceAsStream("/player/up-left-1.png"));
-            up2= ImageIO.read(getClass().getResourceAsStream("/player/up-left-2.png"));
+            upLeft1= ImageIO.read(getClass().getResourceAsStream("/player/up-left-1.png"));
+            upLeft2= ImageIO.read(getClass().getResourceAsStream("/player/up-left-2.png"));
+            upRight1= ImageIO.read(getClass().getResourceAsStream("/player/up-right-1.png"));
+            upRight2= ImageIO.read(getClass().getResourceAsStream("/player/up-right-2.png"));
             right1= ImageIO.read(getClass().getResourceAsStream("/player/right-1.png"));
             right2= ImageIO.read(getClass().getResourceAsStream("/player/right-3.png"));
             right3= ImageIO.read(getClass().getResourceAsStream("/player/right-2.png"));
@@ -115,14 +117,26 @@ public class Player extends Entity {
         BufferedImage image = null;
         switch (direction){
             case "up":
-                if (spriteNum == 1) {
-                    image = up1;
-                }
-                if (spriteNum == 2) {
-                    image = up2;
-                }
-                if (spriteNum == 3) {
-                    image = up2;
+                if(prevDirection=="left") {
+                    if (spriteNum == 1) {
+                        image = upLeft1;
+                    }
+                    if (spriteNum == 2) {
+                        image = upLeft2;
+                    }
+                    if (spriteNum == 3) {
+                        image = upLeft2;
+                    }
+                } else if (prevDirection=="right") {
+                        if (spriteNum == 1) {
+                            image = upRight1;
+                        }
+                        if (spriteNum == 2) {
+                            image = upRight2;
+                        }
+                        if (spriteNum == 3) {
+                            image = upRight2;
+                        }
                 }
                 break;
             case "down":

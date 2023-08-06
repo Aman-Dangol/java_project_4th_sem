@@ -13,9 +13,12 @@ public class Entity {
 
     public int spriteCounter=0;
     public int spriteNum=1;
-    BufferedImage up1;
-    BufferedImage up2;
-    BufferedImage up3;
+    BufferedImage upLeft1;
+    BufferedImage upLeft2;
+    BufferedImage upLeft3;
+    BufferedImage upRight1;
+    BufferedImage upRight2;
+    BufferedImage upRight3;
     protected BufferedImage left1;
     public BufferedImage left2;
     BufferedImage left3;
