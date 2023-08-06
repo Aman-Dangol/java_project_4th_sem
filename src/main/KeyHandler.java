@@ -31,6 +31,7 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_W) {
             up = false;
+
         }
         if(e.getKeyCode()==KeyEvent.VK_S) {
             down = false;

@@ -27,6 +27,7 @@ public class Player extends Entity {
 
         setDefaultValues();
         getPlayerImage();
+        direction="right";
 
 
     }
@@ -53,6 +54,7 @@ public class Player extends Entity {
     }
     public void update(){
             if (keyH.up == true) {
+                direction="up";
                 jump();
             }
             if (keyH.down == true) {
@@ -72,16 +74,18 @@ public class Player extends Entity {
             //60FPS,so every 11 frame,it changes the image
             spriteCounter++;
             //if spriteCounter or every 11 frame >11, spriteCounter=0 and count again ;
+        if (keyH.down|| keyH.right|| keyH.left|| keyH.right){
             if (spriteCounter > 12) {
                 if (spriteNum == 1) {//default spriteNum is 1
                     spriteNum = 2;
                 } else if (spriteNum == 2) {
                     spriteNum = 3;
-                } else if (spriteNum==3) {
-                    spriteNum =2;
+                } else if (spriteNum == 3) {
+                    spriteNum = 2;
                 }
                 spriteCounter = 0;
             }
+        }
         }
 
 
@@ -93,7 +97,6 @@ public class Player extends Entity {
         if (y < gamePanel.height - gamePanel.tileSize) {
             y += fallingSpeed;
             fallingSpeed++;
-
     }
         else{
                 y = gamePanel.height - gamePanel.tileSize;
@@ -141,11 +144,7 @@ public class Player extends Entity {
                 if(spriteNum==3){
                     image=right3;
                 }
-
                 break;
-
-
-
         }
         g2d.drawImage(image,screenX,screenY,gamePanel.tileSize, gamePanel.tileSize, null);
     }
