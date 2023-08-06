@@ -13,11 +13,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     int height = rows * tileSize;
 
-    int x =100;
-    int y=height-tileSize;
-
-    int speed =4;
-
     int FPS = 60;
 
     Thread thread;
@@ -28,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     GamePanel(){
         setPreferredSize(new Dimension(width,height));
-        setBackground(Color.green);
+        setBackground(Color.gray);
        thread = new Thread(this);
         addKeyListener(this);
         setFocusable(true);
@@ -98,10 +93,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 //        if (e.getKeyCode()==KeyEvent.VK_S) {
 //           down=true;
 //        }
-        if (e.getKeyCode()==KeyEvent.VK_D) {
+        if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
            right=true;
        }
-        if (e.getKeyCode()==KeyEvent.VK_A){
+        if (e.getKeyCode()==KeyEvent.VK_LEFT){
            left=true;
         }
 
@@ -115,10 +110,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 //            else if (e.getKeyCode()==KeyEvent.VK_S) {
 //                down=false;
 //            }
-            else if (e.getKeyCode()==KeyEvent.VK_D) {
+            else if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
                 right=false;
             }
-            else if (e.getKeyCode()==KeyEvent.VK_A){
+            else if (e.getKeyCode()==KeyEvent.VK_LEFT){
                 left=false;
             }
         }

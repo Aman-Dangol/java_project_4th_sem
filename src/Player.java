@@ -19,9 +19,9 @@ public class Player extends Entity{
     void getPlayerImage(){
         try {
             left1= ImageIO.read(getClass().getResourceAsStream("/player/left1.png"));
-            left2=ImageIO.read(getClass().getResourceAsStream("/player/left-2.png"));
-            right1=ImageIO.read(getClass().getResourceAsStream("/player/right-1.png"));
+            left2=ImageIO.read(getClass().getResourceAsStream("/player/left-2.png"));;
             right2=ImageIO.read(getClass().getResourceAsStream("/player/right-2.png"));
+            right1=ImageIO.read(getClass().getResourceAsStream("/player/right-1.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,6 +92,7 @@ public class Player extends Entity{
                 }
                 if (spriteNum==2){
                     image=right2;
+
                 }
                 prevDirection="right";
                 break;
