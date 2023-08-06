@@ -14,8 +14,6 @@ public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    String prevDirection;
-
 
 
     public Player(GamePanel gp,KeyHandler keyH){
@@ -37,7 +35,6 @@ public class Player extends Entity {
         y=gamePanel.tileSize*11;
         speed=4;
         direction="right";
-     //   prevDirection="right";
 
     }
     void getPlayerImage(){
@@ -56,7 +53,6 @@ public class Player extends Entity {
         }
     }
     public void update(){
-        if(keyH.up==true|| keyH.down==true|| keyH.left==true|| keyH.right==true) {
             if (keyH.up == true) {
                 direction = "up";
                 y-= speed;
@@ -75,26 +71,22 @@ public class Player extends Entity {
                 //helps to increase the x-axis if right key is pressed
                 x+= speed;
             }
-            //60FPS,so every 11 frame,it change the image
+            //60FPS,so every 11 frame,it changes the image
             spriteCounter++;
             //if spritCounter or every 11 frame >11, spritcounter=0 and count again ;
-            if (spriteCounter > 11) {
+            if (spriteCounter > 12) {
                 if (spriteNum == 1) {//default spriteNum is 1
                     spriteNum = 2;
                 } else if (spriteNum == 2) {
                     spriteNum = 3;
-                    spriteNum = 3;
-
                 } else if (spriteNum==3) {
                     spriteNum =2;
-
                 }
                 spriteCounter = 0;
             }
         }
 
 
-    }
     void jump(){
         fallingSpeed=jump;
         y+=fallingSpeed;
@@ -113,33 +105,6 @@ public class Player extends Entity {
 
     public void draw(Graphics2D g2d){
         BufferedImage image = null;
-//        switch (direction){
-//            case "up":
-//                if (prevDirection=="left"){
-//                    image=left1;
-//                }else if (prevDirection=="right"){
-//                    image=right2;
-//                }
-//
-//                break;
-//            case "left":
-//                if (spriteNum==1){
-//                    image=left1;
-//                }else {
-//                    image=left2;
-//                }
-//                prevDirection="left";
-//                break;
-//            case "right":
-//                if (spriteNum==1){
-//                    image=right1;
-//                }
-//                if (spriteNum==2){
-//                    image=right2;
-//                }
-//                prevDirection="right";
-//                break;
-
         switch (direction){
             case "up":
                 if(spriteNum==1){
@@ -148,7 +113,9 @@ public class Player extends Entity {
                 if(spriteNum==2){
                     image = up2;
                 }
-
+                if (spriteNum==3){
+                    image=up2;
+                }
                 break;
             case "down":
                 image = right1;
