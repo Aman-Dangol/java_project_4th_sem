@@ -29,12 +29,8 @@ public class TileManager {
         getTileImage();
         // Get the background image dimensions
         backgroundImageWidth =background.getWidth(null);
-        backgroundImageHeight =background.getHeight(null);;
-
-
+        backgroundImageHeight =background.getHeight(null);
     }
-
-
     public void getTileImage(){
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/background/background.png"));
         background = imageIcon.getImage();
@@ -42,6 +38,8 @@ public class TileManager {
     }
 
     public void draw(Graphics2D g2){
+
+
         int offsetX=gp.player.screenX-gp.player.x;
         int offsetY=gp.player.screenY-gp.player.y;
         g2.drawImage(background,backgroundX+offsetX,backgroundY+offsetY,null);

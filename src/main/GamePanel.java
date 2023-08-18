@@ -17,9 +17,6 @@ public class GamePanel extends JPanel implements Runnable {
    public int width = column * tileSize;
 
     public int height = rows * tileSize;
-
-   // int x = 100;
-    //int y = height - tileSize;
     int FPS = 60;
     TileManager tileM;
 

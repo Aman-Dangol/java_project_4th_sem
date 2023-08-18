@@ -1,6 +1,4 @@
 package entity;
-
-import entity.Entity;
 import main.GamePanel;
 import main.KeyHandler;
 
@@ -14,10 +12,7 @@ public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-
     String prevDirection="left";
-
-
     public Player(GamePanel gp,KeyHandler keyH){
 
         this.gamePanel=gp;
@@ -96,8 +91,6 @@ public class Player extends Entity {
             }
         }
         }
-
-
     void jump(){
         fallingSpeed=jump;
         y+=fallingSpeed;
@@ -110,7 +103,6 @@ public class Player extends Entity {
         else{
                 y = gamePanel.height - gamePanel.tileSize;
             }
-
         }
 
     public void draw(Graphics2D g2d){
@@ -152,8 +144,6 @@ public class Player extends Entity {
                 if(spriteNum==3){
                     image=left3;
                 }
-
-
                 break;
             case "right":
                 if(spriteNum==1){

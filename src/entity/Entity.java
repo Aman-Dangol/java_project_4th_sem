@@ -18,13 +18,11 @@ public class Entity {
     BufferedImage upLeft3;
     BufferedImage upRight1;
     BufferedImage upRight2;
-    BufferedImage upRight3;
     protected BufferedImage left1;
     public BufferedImage left2;
     BufferedImage left3;
     public BufferedImage right1;
     public BufferedImage right2;
     BufferedImage right3;
-    BufferedImage down;
 
 }
