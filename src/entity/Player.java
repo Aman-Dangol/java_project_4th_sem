@@ -19,7 +19,7 @@ public class Player extends Entity {
         this.keyH=keyH;
 
         screenX=gamePanel.width/2-(gp.tileSize/2);
-        screenY=gamePanel.height/2-(gp.tileSize/2);
+        screenY=(gamePanel.height/2-(gp.tileSize/2))+90;
 
 
         setDefaultValues();
@@ -29,8 +29,8 @@ public class Player extends Entity {
 
     }
     public void setDefaultValues(){
-        x=gamePanel.tileSize*20;
-        y=gamePanel.tileSize*11;
+        x=gamePanel.tileSize*23;
+        y=gamePanel.tileSize*14;
         speed=4;
 
     }
@@ -51,7 +51,7 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
-    public void update(){
+    public void update() throws InterruptedException {
             if (keyH.up == true) {
                 direction="up";
                 jump();
@@ -91,14 +91,18 @@ public class Player extends Entity {
             }
         }
         }
-    void jump(){
+
+
+    void jump() throws InterruptedException {
         fallingSpeed=jump;
         y+=fallingSpeed;
+
     }
-    public void falling() {
+    public void falling() throws InterruptedException {
         if (y < gamePanel.height - gamePanel.tileSize) {
             y += fallingSpeed;
             fallingSpeed++;
+
     }
         else{
                 y = gamePanel.height - gamePanel.tileSize;
