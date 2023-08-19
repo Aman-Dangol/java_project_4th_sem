@@ -4,9 +4,7 @@ import main.GamePanel;
 import main.KeyHandler;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,11 +26,11 @@ public class TileManager {
         tile=new Tile[10];
         mapTileNUm=new int[gp.maxWorldcol][gp.maxWorldRow];
         getTileImage();
-        loadmap("/maps/mapMM.txt");
+        loadMap("/maps/mapMM.txt");
 
 
     }
-    public void loadmap(String filePath){
+    public void loadMap(String filePath){
         try{
             InputStream is=getClass().getResourceAsStream(filePath);
             BufferedReader br=new BufferedReader(new InputStreamReader(is));
@@ -85,12 +83,9 @@ public class TileManager {
             int screenY = worldY - gp.player.y + gp.player.screenY;
 
             if (worldX + gp.tileSize > gp.player.x - gp.player.screenX &&
-                    worldX - gp.tileSize < gp.player.x + gp.player.screenX &&
-                    worldY + gp.tileSize > gp.player.y - gp.player.screenY &&
-                    worldY - gp.tileSize < gp.player.y + gp.player.screenY
+                    worldY + gp.tileSize > gp.player.y - gp.player.screenY
             ) {
                 if (worldRow == 12) {
-                    System.out.println("world col");
                     g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
                 }
