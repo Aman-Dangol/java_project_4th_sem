@@ -64,8 +64,8 @@ public class TileManager {
     public void getTileImage(){
         try{
 
-            tile[0]=new Tile();
-            tile[0].image= ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+            tile[1]=new Tile();
+            tile[1].image= ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -85,7 +85,7 @@ public class TileManager {
             if (worldX + gp.tileSize > gp.player.x - gp.player.screenX &&
                     worldY + gp.tileSize > gp.player.y - gp.player.screenY
             ) {
-                if (worldRow == 12) {
+                if (tileNum!=0) {
                     g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 
                 }
