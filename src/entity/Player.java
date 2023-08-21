@@ -46,6 +46,8 @@ public class Player extends Entity {
             left1= ImageIO.read(getClass().getResourceAsStream("/player/left1.png"));
             left2= ImageIO.read(getClass().getResourceAsStream("/player/left-3.png"));
             left3= ImageIO.read(getClass().getResourceAsStream("/player/left-2.png"));
+            fly=ImageIO.read(getClass().getResourceAsStream("/player/fly.png"));
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,23 +117,23 @@ public class Player extends Entity {
             case "up":
                 if(prevDirection=="left") {
                     if (spriteNum == 1) {
-                        image = upLeft1;
+                        image = left1;
                     }
                     if (spriteNum == 2) {
-                        image = upLeft2;
+                        image = left1;
                     }
                     if (spriteNum == 3) {
-                        image = upLeft2;
+                        image = left1;
                     }
                 } else if (prevDirection=="right") {
                         if (spriteNum == 1) {
-                            image = upRight1;
+                            image = right1;
                         }
                         if (spriteNum == 2) {
-                            image = upRight2;
+                            image = right1;
                         }
                         if (spriteNum == 3) {
-                            image = upRight2;
+                            image = right1;
                         }
                 }
                 break;
@@ -139,29 +141,43 @@ public class Player extends Entity {
                 image = right1;
                 break;
             case "left":
-                if(spriteNum==1){
-                    image = left1;
+                if (!keyH.up){
+                    if(spriteNum==1){
+                        image = left1;
+                    }
+                    if(spriteNum==2){
+                        image = left2;
+                    }
+                    if(spriteNum==3){
+                        image=left3;
+                    }
                 }
-                if(spriteNum==2){
-                    image = left2;
-                }
-                if(spriteNum==3){
-                    image=left3;
+                else {
+                    image=left1;
                 }
                 break;
             case "right":
-                if(spriteNum==1){
-                    image = right1;
+                if (keyH.up==false){
+                    if(spriteNum==1){
+                        image = right1;
+                    }
+                    if(spriteNum==2){
+                        image = right2;
+                    }
+                    if(spriteNum==3){
+                        image=right3;
+                    }
                 }
-                if(spriteNum==2){
-                    image = right2;
-                }
-                if(spriteNum==3){
-                    image=right3;
+                else {
+                    image=right1;
                 }
                 break;
         }
         g2d.drawImage(image,screenX,screenY,gamePanel.tileSize, gamePanel.tileSize, null);
+        if (keyH.up==true){
+            g2d.drawImage(fly,screenX,screenY+48,gamePanel.tileSize, gamePanel.tileSize, null);
+
+        }
     }
 
 
