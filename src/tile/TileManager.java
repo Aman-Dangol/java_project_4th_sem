@@ -20,11 +20,13 @@ public class TileManager {
 
     public Image background;
 
+
+
     public TileManager(GamePanel gp,KeyHandler keyH){
         this.gp=gp;
         this.keyH=keyH;
         tile=new Tile[10];
-        mapTileNUm=new int[gp.maxWorldcol][gp.maxWorldRow];
+        mapTileNUm=new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
         loadMap("/maps/mapMM.txt");
 
@@ -37,9 +39,9 @@ public class TileManager {
             int col=0;
             int row=0;
             //here also change maxScreenXol and maxScreenRow to maxWorldCol n maxWorldRow
-            while(col<gp.maxWorldcol&&row <gp.maxWorldRow) {
+            while(col<gp.maxWorldCol &&row <gp.maxWorldRow) {
                 String line = br.readLine();
-                while(col<gp.maxWorldcol){
+                while(col<gp.maxWorldCol){
                     String numbers[]=line.split(" ");
                     int num=Integer.parseInt(numbers[col]);
 
@@ -48,7 +50,7 @@ public class TileManager {
                     }
                     col++;
                 }
-                if(col==gp.maxWorldcol){
+                if(col==gp.maxWorldCol){
                     col=0;
                     row++;
 
@@ -77,7 +79,7 @@ public class TileManager {
     public void draw(Graphics2D g2) {
         int worldCol = 0;
         int worldRow = 0;
-        while (worldCol < gp.maxWorldcol && worldRow < gp.maxWorldRow) {
+        while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
             int tileNum = mapTileNUm[worldCol][worldRow];
             //finding x and y
             int worldX = worldCol * gp.tileSize;
@@ -90,22 +92,21 @@ public class TileManager {
             ) {
                 if (tileNum!=0) {
                     g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+                    tile[tileNum].tileX=worldX;
+                    tile[tileNum].tileY=worldY;
+
 
                 }
             }
             worldCol++;
 
-            if (worldCol == gp.maxWorldcol) {
+            if (worldCol == gp.maxWorldCol) {
                 worldCol = 0;
                 worldRow++;
 
 
             }
-
-
         }
-
-
     }
-    }
+}
 

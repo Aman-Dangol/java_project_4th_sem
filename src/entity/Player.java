@@ -1,6 +1,7 @@
 package entity;
 import main.GamePanel;
 import main.KeyHandler;
+import tile.TileManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -29,8 +30,8 @@ public class Player extends Entity {
 
     }
     public void setDefaultValues(){
-        x=gamePanel.tileSize*23;
-        y=gamePanel.tileSize*14;
+       x=gamePanel.tileSize*23;
+        y=gamePanel.tileSize*9;
         speed=4;
 
     }
@@ -53,7 +54,7 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
-    public void update() throws InterruptedException {
+    public void update()  {
             if (keyH.up == true) {
                 direction="up";
                 jump();
@@ -95,20 +96,18 @@ public class Player extends Entity {
         }
 
 
-    void jump() throws InterruptedException {
+    void jump()  {
         fallingSpeed=jump;
         y+=fallingSpeed;
 
     }
-    public void falling() throws InterruptedException {
-        if (y < gamePanel.height - gamePanel.tileSize) {
+    public void falling(TileManager tileManager)  {
+        System.out.println(" Y "+y+" x: "+x);
+        if (y <tileManager.tile[1].tileY- gamePanel.tileSize) {
             y += fallingSpeed;
             fallingSpeed++;
-
     }
-        else{
-                y = gamePanel.height - gamePanel.tileSize;
-            }
+
         }
 
     public void draw(Graphics2D g2d){

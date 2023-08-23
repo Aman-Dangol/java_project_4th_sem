@@ -8,7 +8,13 @@ public class Tile{
 
 
         public BufferedImage image;
+        public int tileX;
+        public  int tileY;
+
+        public boolean exist=false;
         public boolean collision=false;
+
+
 
 }
 

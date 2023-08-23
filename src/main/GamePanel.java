@@ -6,8 +6,6 @@ import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -20,9 +18,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public int height = rows * tileSize;
 
-   // int x = 100;
-    //int y = height - tileSize;
-   public final int maxWorldcol=50;
+   public final int maxWorldCol =50;
     public final int maxWorldRow=20;
     public final int worldWidth=tileSize*column;
     public final int worldHeight=tileSize*rows;
@@ -61,16 +57,10 @@ public class GamePanel extends JPanel implements Runnable {
         double nextDrawTime = System.currentTimeMillis() + drawInterval;//upper limit
         while (true) {//as long as gameThread obj exists it repeats the process,core component go game
             //update character position and drawing with updated information
-            try {
+
                 update();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                player.falling();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+                player.falling(tileM);
+
             repaint();
             try {
                 double remainingTime = nextDrawTime - System.currentTimeMillis();
@@ -85,7 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    void update() throws InterruptedException {
+    void update()  {
         player.update();
     }
     public void startingThread(){
