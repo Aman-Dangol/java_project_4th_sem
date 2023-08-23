@@ -12,7 +12,6 @@ public class Tile{
         public  int tileY;
 
         public boolean exist=false;
-        public boolean collision=false;
 
 
 

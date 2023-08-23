@@ -94,7 +94,8 @@ public class TileManager {
                     g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
                     tile[tileNum].tileX=worldX;
                     tile[tileNum].tileY=worldY;
-
+                    tile[tileNum].exist=true;
+//                    System.out.println("tileX : " + tile[tileNum].tileX + " tile y : " + tile[tileNum].tileY);
 
                 }
             }

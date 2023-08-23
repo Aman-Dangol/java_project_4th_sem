@@ -106,7 +106,9 @@ public class Player extends Entity {
         if (y <tileManager.tile[1].tileY- gamePanel.tileSize) {
             y += fallingSpeed;
             fallingSpeed++;
-    }
+        }else{
+            y=tileManager.tile[1].tileY- gamePanel.tileSize;
+        }
 
         }
 
