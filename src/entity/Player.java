@@ -124,7 +124,7 @@ public class Player extends Entity {
         if (gamePanel.collisionChecker.checkFall(this)==true){
             worldY += fallingSpeed;
             fallingSpeed++;
-            
+
         }
         System.out.println(fallingSpeed);
 
