@@ -42,7 +42,6 @@ public class CollisionChecker {
                 entityTopRow=(entityTopWorldY-entity.speed)/gp.tileSize;
                 tileNum1=gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2=gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-                System.out.println(tileNum1+" "+tileNum2);
                 if (gp.tileM.tile[tileNum1].collision==true  || gp.tileM.tile[tileNum2].collision==true ){
                     entity.collisionOn=true;
                 }
@@ -60,7 +59,6 @@ public class CollisionChecker {
                 tileNum1=gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2=gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
                 if (gp.tileM.tile[tileNum1].collision==true || gp.tileM.tile[tileNum2].collision==true){
-                    System.out.println("left");
 
                     entity.collisionOn=true;
                 }

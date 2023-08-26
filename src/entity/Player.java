@@ -80,7 +80,6 @@ public class Player extends Entity {
                 switch (direction) {
                     case "up":
                         jump();
-//                        worldY -= speed;
                         break;
                     case "down":
                         worldY += speed;
@@ -119,14 +118,15 @@ public class Player extends Entity {
 
     void jump()  {
         fallingSpeed=jump;
-        System.out.println(fallingSpeed);
         worldY +=fallingSpeed;
     }
     public void falling()  {
         if (gamePanel.collisionChecker.checkFall(this)==true){
             worldY += fallingSpeed;
+            fallingSpeed++;
+            
         }
-        fallingSpeed++;
+        System.out.println(fallingSpeed);
 
 
 
