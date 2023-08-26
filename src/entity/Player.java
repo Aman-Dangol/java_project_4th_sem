@@ -1,7 +1,6 @@
 package entity;
 import main.GamePanel;
 import main.KeyHandler;
-import tile.TileManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,10 +18,10 @@ public class Player extends Entity {
         this.gamePanel=gp;
         this.keyH=keyH;
 
-        screenX=gamePanel.width/2-(gp.tileSize/2);
-        screenY=(gamePanel.height/2-(gp.tileSize/2))+90;
+        screenX= gp.screenWidth/2;
+        screenY=gp.screenHeight/2;
 
-
+        solidArea = new Rectangle(0,0,gp.tileSize,gp.tileSize);
         setDefaultValues();
         getPlayerImage();
         direction="left";
@@ -30,8 +29,8 @@ public class Player extends Entity {
 
     }
     public void setDefaultValues(){
-       x=gamePanel.tileSize*23;
-        y=gamePanel.tileSize*9;
+       worldX =gamePanel.tileSize*23;
+        worldY =gamePanel.tileSize*9;
         speed=4;
 
     }
@@ -58,25 +57,39 @@ public class Player extends Entity {
             if (keyH.up == true) {
                 direction="up";
                 jump();
-            }
-            if (keyH.up==false){
-                direction=prevDirection;
+
             }
             if (keyH.down == true) {
                 direction = "down";
-                y+= speed;
             }
             if (keyH.left == true) {
                 direction = "left";
-                prevDirection="left";
-                x -= speed;
             }
             if (keyH.right == true) {
                 //direction is for changing img according to the arrow
                 direction = "right";
-                prevDirection="right";
                 //helps to increase the x-axis if right key is pressed
-                x+= speed;
+            }
+            collisionOn=false;
+            gamePanel.collisionChecker.checkTile(this);
+
+            if (collisionOn==false){
+                switch (direction){
+                    case "up":
+                        break;
+                    case "down":
+                        worldY += speed;
+
+                        break;
+                    case "left" :
+                        worldX -= speed;
+
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+
+                }
             }
             //60FPS,so every 11 frame,it changes the image
             spriteCounter++;
@@ -98,19 +111,14 @@ public class Player extends Entity {
 
     void jump()  {
         fallingSpeed=jump;
-        y+=fallingSpeed;
-
+        worldY +=fallingSpeed;
     }
-    public void falling(TileManager tileManager)  {
-        System.out.println(" Y "+y+" x: "+x);
-        if (y <tileManager.tile[1].tileY- gamePanel.tileSize) {
-            y += fallingSpeed;
-            fallingSpeed++;
-        }else{
-            y=tileManager.tile[1].tileY- gamePanel.tileSize;
-        }
-
-        }
+    public void falling()  {
+                    if (collisionOn==false){
+                        worldY += fallingSpeed;
+                        fallingSpeed++;
+                    }
+    }
 
     public void draw(Graphics2D g2d){
         BufferedImage image = null;

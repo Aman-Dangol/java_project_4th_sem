@@ -14,12 +14,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     int rows = 12;
 
-   public int width = column * tileSize;
+   public int screenWidth = column * tileSize;
 
-    public int height = rows * tileSize;
+    public int screenHeight = rows * tileSize;
 
    public final int maxWorldCol =50;
-    public final int maxWorldRow=20;
+    public final int maxWorldRow=50;
     public final int worldWidth=tileSize*column;
     public final int worldHeight=tileSize*rows;
     int FPS = 60;
@@ -29,11 +29,13 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH=new KeyHandler();
     public Player player = new Player(this,keyH);
 
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
+
     Thread thread;
 
 
     GamePanel() throws IOException {
-        setPreferredSize(new Dimension(width, height));
+        setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
         addKeyListener(keyH);
@@ -59,7 +61,6 @@ public class GamePanel extends JPanel implements Runnable {
             //update character position and drawing with updated information
 
                 update();
-                player.falling(tileM);
 
             repaint();
             try {
@@ -77,6 +78,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     void update()  {
         player.update();
+        player.falling();
+
     }
     public void startingThread(){
         thread=new Thread(this);

@@ -1,16 +1,15 @@
 package entity;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
-    public int x ;
-    public int y;
+    public int worldX;
+    public int worldY;
     public int speed=5;
     public int fallingSpeed = 10;
     public int jump =-3;
     public String direction;
-
-
     public int spriteCounter=0;
     public int spriteNum=1;
     BufferedImage fly;
@@ -25,5 +24,8 @@ public class Entity {
     public BufferedImage right1;
     public BufferedImage right2;
     BufferedImage right3;
+    public Rectangle solidArea;
+    public boolean collisionOn=false;
+
 
 }

@@ -18,7 +18,7 @@ public class TileManager {
     public  int mapTileNUm[][];
     KeyHandler keyH;
 
-    public Image background;
+    public int index=0;
 
 
 
@@ -44,10 +44,8 @@ public class TileManager {
                 while(col<gp.maxWorldCol){
                     String numbers[]=line.split(" ");
                     int num=Integer.parseInt(numbers[col]);
-
-                    if (num!=0){
                         mapTileNUm[col][row]=num;
-                    }
+
                     col++;
                 }
                 if(col==gp.maxWorldCol){
@@ -68,9 +66,14 @@ public class TileManager {
 
             tile[1]=new Tile();
             tile[1].image= ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+            tile[1].collision=true;
 
             tile[2]=new Tile();
             tile[2].image= ImageIO.read(getClass().getResourceAsStream("/tiles/ground.png"));
+
+            tile[0]=new Tile();
+            tile[0].image= ImageIO.read(getClass().getResourceAsStream("/tiles/transparentTile.png"));
+
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -84,20 +87,15 @@ public class TileManager {
             //finding x and y
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;
-            int screenX = worldX - gp.player.x + gp .player.screenX;
-            int screenY = worldY - gp.player.y + gp.player.screenY;
+            int screenX = worldX - gp.player.worldX + gp .player.screenX;
+            int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-            if (worldX + gp.tileSize > gp.player.x - gp.player.screenX &&
-                    worldY + gp.tileSize > gp.player.y - gp.player.screenY
+            if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
+                    worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
             ) {
-                if (tileNum!=0) {
                     g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-                    tile[tileNum].tileX=worldX;
-                    tile[tileNum].tileY=worldY;
-                    tile[tileNum].exist=true;
-//                    System.out.println("tileX : " + tile[tileNum].tileX + " tile y : " + tile[tileNum].tileY);
 
-                }
+
             }
             worldCol++;
 

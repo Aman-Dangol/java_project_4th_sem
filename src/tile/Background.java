@@ -4,7 +4,6 @@ package tile;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -19,7 +18,7 @@ import java.io.IOException;
             background= ImageIO.read(getClass().getResourceAsStream("/background/background1.png"));
         }
         public void draw(Graphics g2){
-            g2.drawImage(background,0,0,gp.width,gp.height,null);
+            g2.drawImage(background,0,0,gp.screenWidth,gp.screenHeight,null);
         }
 
 
