@@ -15,7 +15,7 @@ public class TileManager {
 
     GamePanel gp;
     public  Tile[] tile;
-    public  int mapTileNUm[][];
+    public  int mapTileNum[][];
     KeyHandler keyH;
 
     public int index=0;
@@ -26,7 +26,7 @@ public class TileManager {
         this.gp=gp;
         this.keyH=keyH;
         tile=new Tile[10];
-        mapTileNUm=new int[gp.maxWorldCol][gp.maxWorldRow];
+        mapTileNum =new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
         loadMap("/maps/mapMM.txt");
 
@@ -44,7 +44,7 @@ public class TileManager {
                 while(col<gp.maxWorldCol){
                     String numbers[]=line.split(" ");
                     int num=Integer.parseInt(numbers[col]);
-                        mapTileNUm[col][row]=num;
+                        mapTileNum[col][row]=num;
 
                     col++;
                 }
@@ -70,6 +70,7 @@ public class TileManager {
 
             tile[2]=new Tile();
             tile[2].image= ImageIO.read(getClass().getResourceAsStream("/tiles/ground.png"));
+            tile[2].collision=true;
 
             tile[0]=new Tile();
             tile[0].image= ImageIO.read(getClass().getResourceAsStream("/tiles/transparentTile.png"));
@@ -83,7 +84,7 @@ public class TileManager {
         int worldCol = 0;
         int worldRow = 0;
         while (worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
-            int tileNum = mapTileNUm[worldCol][worldRow];
+            int tileNum = mapTileNum[worldCol][worldRow];
             //finding x and y
             int worldX = worldCol * gp.tileSize;
             int worldY = worldRow * gp.tileSize;

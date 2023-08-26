@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileM;
     Background background=new Background(this);
 
-    KeyHandler keyH=new KeyHandler();
+    KeyHandler keyH=keyH=new KeyHandler();
     public Player player = new Player(this,keyH);
 
     public CollisionChecker collisionChecker = new CollisionChecker(this);
@@ -35,6 +35,9 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     GamePanel() throws IOException {
+
+
+
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
@@ -78,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     void update()  {
         player.update();
-        player.falling();
+//        player.falling();
 
     }
     public void startingThread(){

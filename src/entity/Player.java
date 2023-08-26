@@ -22,9 +22,10 @@ public class Player extends Entity {
         screenY=gp.screenHeight/2;
 
         solidArea = new Rectangle(0,0,gp.tileSize,gp.tileSize);
+
         setDefaultValues();
         getPlayerImage();
-        direction="left";
+        direction="down";
 
 
     }
@@ -54,36 +55,36 @@ public class Player extends Entity {
         }
     }
     public void update()  {
-            if (keyH.up == true) {
-                direction="up";
-                jump();
+        if (keyH.upPressed == true || keyH.downPressed == true   ||keyH.leftPressed == true || keyH.rightPressed == true) {
+            if (keyH.upPressed == true) {
+                direction = "up";
 
             }
-            if (keyH.down == true) {
+            if (keyH.downPressed == true) {
                 direction = "down";
+
             }
-            if (keyH.left == true) {
+            if (keyH.leftPressed == true) {
                 direction = "left";
             }
-            if (keyH.right == true) {
-                //direction is for changing img according to the arrow
+            if (keyH.rightPressed == true) {
                 direction = "right";
+                //direction is for changing img according to the arrow
                 //helps to increase the x-axis if right key is pressed
             }
             collisionOn=false;
             gamePanel.collisionChecker.checkTile(this);
 
-            if (collisionOn==false){
-                switch (direction){
+            if (collisionOn == false) {
+                switch (direction) {
                     case "up":
+                        worldY -= speed;
                         break;
                     case "down":
                         worldY += speed;
-
                         break;
-                    case "left" :
+                    case "left":
                         worldX -= speed;
-
                         break;
                     case "right":
                         worldX += speed;
@@ -91,10 +92,14 @@ public class Player extends Entity {
 
                 }
             }
+        }
+
+
+
             //60FPS,so every 11 frame,it changes the image
             spriteCounter++;
             //if spriteCounter or every 11 frame >11, spriteCounter=0 and count again ;
-        if (keyH.down|| keyH.right|| keyH.left|| keyH.right){
+        if (keyH.downPressed || keyH.rightPressed || keyH.leftPressed || keyH.upPressed){
             if (spriteCounter > 12) {
                 if (spriteNum == 1) {//default spriteNum is 1
                     spriteNum = 2;
@@ -114,10 +119,10 @@ public class Player extends Entity {
         worldY +=fallingSpeed;
     }
     public void falling()  {
-                    if (collisionOn==false){
-                        worldY += fallingSpeed;
-                        fallingSpeed++;
-                    }
+            if (collisionOn==false){
+                worldY += fallingSpeed;
+                fallingSpeed++;
+            }
     }
 
     public void draw(Graphics2D g2d){
@@ -150,7 +155,7 @@ public class Player extends Entity {
                 image = right1;
                 break;
             case "left":
-                if (!keyH.up){
+                if (!keyH.upPressed){
                     if(spriteNum==1){
                         image = left1;
                     }
@@ -166,7 +171,7 @@ public class Player extends Entity {
                 }
                 break;
             case "right":
-                if (keyH.up==false){
+                if (keyH.upPressed ==false){
                     if(spriteNum==1){
                         image = right1;
                     }
@@ -183,7 +188,7 @@ public class Player extends Entity {
                 break;
         }
         g2d.drawImage(image,screenX,screenY,gamePanel.tileSize, gamePanel.tileSize, null);
-        if (keyH.up==true){
+        if (keyH.upPressed ==true){
             g2d.drawImage(fly,screenX,screenY+48,gamePanel.tileSize, gamePanel.tileSize, null);
 
         }
