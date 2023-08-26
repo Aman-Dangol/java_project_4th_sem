@@ -78,7 +78,8 @@ public class Player extends Entity {
             if (collisionOn == false) {
                 switch (direction) {
                     case "up":
-                        worldY -= speed;
+                        jump();
+//                        worldY -= speed;
                         break;
                     case "down":
                         worldY += speed;
@@ -91,6 +92,7 @@ public class Player extends Entity {
                         break;
 
                 }
+
             }
         }
 
@@ -119,10 +121,12 @@ public class Player extends Entity {
         worldY +=fallingSpeed;
     }
     public void falling()  {
-            if (collisionOn==false){
-                worldY += fallingSpeed;
-                fallingSpeed++;
-            }
+        if (gamePanel.collisionChecker.checkFall(this)==true){
+            worldY += fallingSpeed;
+            fallingSpeed++;
+        }
+
+
     }
 
     public void draw(Graphics2D g2d){

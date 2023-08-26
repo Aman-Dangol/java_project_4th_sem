@@ -62,8 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
         double nextDrawTime = System.currentTimeMillis() + drawInterval;//upper limit
         while (true) {//as long as gameThread obj exists it repeats the process,core component go game
             //update character position and drawing with updated information
-
-                update();
+            update();
 
             repaint();
             try {
@@ -81,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     void update()  {
         player.update();
-//        player.falling();
+        player.falling();
 
     }
     public void startingThread(){
