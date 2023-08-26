@@ -33,6 +33,7 @@ public class Player extends Entity {
        worldX =gamePanel.tileSize*23;
         worldY =gamePanel.tileSize*9;
         speed=4;
+        jump=-4;
 
     }
     void getPlayerImage(){
@@ -118,13 +119,15 @@ public class Player extends Entity {
 
     void jump()  {
         fallingSpeed=jump;
+        System.out.println(fallingSpeed);
         worldY +=fallingSpeed;
     }
     public void falling()  {
         if (gamePanel.collisionChecker.checkFall(this)==true){
             worldY += fallingSpeed;
-            fallingSpeed++;
         }
+        fallingSpeed++;
+
 
 
     }
