@@ -12,7 +12,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int tileSize = 48;//for creating a tiles
     int column = 20;
 
-    int rows = 12;
+    int rows = 14;
 
    public int screenWidth = column * tileSize;
 

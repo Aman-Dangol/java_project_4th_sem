@@ -31,7 +31,7 @@ public class Player extends Entity {
     }
     public void setDefaultValues(){
        worldX =gamePanel.tileSize*23;
-        worldY =gamePanel.tileSize*9;
+        worldY =gamePanel.tileSize*12;
         speed=4;
         jump=-4;
 
@@ -77,20 +77,20 @@ public class Player extends Entity {
             gamePanel.collisionChecker.checkTile(this);
 
             if (collisionOn == false) {
-                switch (direction) {
-                    case "up":
-                        jump();
-                        break;
-                    case "down":
+                if (keyH.upPressed == true) {
+                    jump();
+                }
+                if (keyH.downPressed == true) {
                         worldY += speed;
-                        break;
-                    case "left":
-                        worldX -= speed;
-                        break;
-                    case "right":
-                        worldX += speed;
-                        break;
 
+                }
+                if (keyH.leftPressed == true) {
+                        worldX -= speed;
+                }
+                if (keyH.rightPressed == true) {
+                    worldX += speed;
+                    //direction is for changing img according to the arrow
+                    //helps to increase the x-axis if right key is pressed
                 }
 
             }
@@ -126,7 +126,6 @@ public class Player extends Entity {
             fallingSpeed++;
 
         }
-        System.out.println(fallingSpeed);
 
 
 
