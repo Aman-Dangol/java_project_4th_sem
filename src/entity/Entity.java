@@ -8,7 +8,7 @@ public class Entity {
     public int worldY;
     public int speed=5;
     public int fallingSpeed = 1;
-    public int jump;
+    public int jump=-4;
     public String direction;
     public int spriteCounter=0;
     public int spriteNum=1;

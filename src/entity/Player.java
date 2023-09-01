@@ -33,7 +33,7 @@ public class Player extends Entity {
        worldX =gamePanel.tileSize*23;
         worldY =gamePanel.tileSize*12;
         speed=4;
-        jump=-4;
+//        jump=-4;
 
     }
     void getPlayerImage(){
@@ -63,7 +63,6 @@ public class Player extends Entity {
             }
             if (keyH.downPressed == true) {
                 direction = "down";
-
             }
             if (keyH.leftPressed == true) {
                 direction = "left";
@@ -121,10 +120,18 @@ public class Player extends Entity {
         worldY +=fallingSpeed;
     }
     public void falling()  {
-        if (gamePanel.collisionChecker.checkFall(this)==true){
+        if (gamePanel.collisionChecker.checkFall(this)){
             worldY += fallingSpeed;
             fallingSpeed++;
-
+            if (fallingSpeed>16){
+                fallingSpeed=15;
+            }
+            System.out.println(fallingSpeed);
+        }
+        else {
+            float point=worldY/12;
+            int onlyWhole= (int) point;
+            worldY=onlyWhole*12;
         }
 
 
@@ -193,6 +200,7 @@ public class Player extends Entity {
                 }
                 break;
         }
+//        g2d.drawRect(screenX,screenY, gamePanel.tileSize,gamePanel.tileSize);
         g2d.drawImage(image,screenX,screenY,gamePanel.tileSize, gamePanel.tileSize, null);
         if (keyH.upPressed ==true){
             g2d.drawImage(fly,screenX,screenY+48,gamePanel.tileSize, gamePanel.tileSize, null);
