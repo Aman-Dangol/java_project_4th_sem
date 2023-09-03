@@ -3,7 +3,7 @@ package main;
 import entity.Player;
 import tile.Background;
 import tile.TileManager;
-
+import Object.SuperObject;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -12,7 +12,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int tileSize = 48;//for creating a tiles
     int column = 20;
 
-    int rows = 14;
+    int rows = 12;
 
    public int screenWidth = column * tileSize;
 
@@ -31,7 +31,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     public CollisionChecker collisionChecker = new CollisionChecker(this);
 
+    AssetSetter aSetter= new AssetSetter(this);
+
+    SuperObject obj[]= new SuperObject[10];
     Thread thread;
+
+
 
 
     GamePanel() throws IOException {
@@ -46,6 +51,9 @@ public class GamePanel extends JPanel implements Runnable {
         tileM=new TileManager(this,keyH);
     }
 
+    public void setupGame(){
+        aSetter.setObject();
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -53,6 +61,11 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2d = (Graphics2D) g;
         background.draw(g2d);
         tileM.draw(g2d);
+        for (int i=0;i< obj.length;i++){
+            if (obj[i]!=null){
+                obj[i].draw(g2d,this);
+            }
+        }
         player.draw(g2d);
         g2d.dispose();
     }

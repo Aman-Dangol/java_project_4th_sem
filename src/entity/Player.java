@@ -31,9 +31,8 @@ public class Player extends Entity {
     }
     public void setDefaultValues(){
        worldX =gamePanel.tileSize*23;
-        worldY =gamePanel.tileSize*12;
+        worldY =gamePanel.tileSize*23;
         speed=4;
-//        jump=-4;
 
     }
     void getPlayerImage(){
@@ -126,16 +125,12 @@ public class Player extends Entity {
             if (fallingSpeed>16){
                 fallingSpeed=15;
             }
-            System.out.println(fallingSpeed);
         }
         else {
             float point=worldY/12;
             int onlyWhole= (int) point;
             worldY=onlyWhole*12;
         }
-
-
-
     }
 
     public void draw(Graphics2D g2d){

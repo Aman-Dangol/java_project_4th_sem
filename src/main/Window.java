@@ -14,6 +14,7 @@ public class Window extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);//centering the frame
         setVisible(true);
+        gamePanel.setupGame();
         gamePanel.startingThread();
 
 
