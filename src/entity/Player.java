@@ -22,6 +22,9 @@ public class Player extends Entity {
         screenY=gp.screenHeight/2;
 
         solidArea = new Rectangle(0,0,gp.tileSize,gp.tileSize);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY=solidArea.y;
+
 
         setDefaultValues();
         getPlayerImage();
@@ -73,6 +76,11 @@ public class Player extends Entity {
             }
             collisionOn=false;
             gamePanel.collisionChecker.checkTile(this);
+            int objIndex=gamePanel.collisionChecker.checkObject(this,true);
+            if (keyH.pick==true){
+                pickup(objIndex);
+            }
+
 
             if (collisionOn == false) {
                 if (keyH.upPressed == true) {
@@ -201,6 +209,14 @@ public class Player extends Entity {
             g2d.drawImage(fly,screenX,screenY+48,gamePanel.tileSize, gamePanel.tileSize, null);
 
         }
+    }
+
+    public void pickup(int i){
+
+        if (i!=999){
+            gamePanel.obj[i]=null;
+        }
+
     }
 
 
