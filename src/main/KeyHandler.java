@@ -26,6 +26,7 @@ public class KeyHandler implements KeyListener {
             rightPressed = true;
         }
         if (e.getKeyCode()==KeyEvent.VK_E){
+            System.out.println("pick = true");
             pick=true;
         }
 
@@ -44,7 +45,10 @@ public class KeyHandler implements KeyListener {
         }
         if(e.getKeyCode()==KeyEvent.VK_D) {
             rightPressed = false;
+        }if(e.getKeyCode()==KeyEvent.VK_E) {
+            pick = false;
         }
+
 
 
     }

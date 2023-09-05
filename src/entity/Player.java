@@ -13,6 +13,8 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     String prevDirection="left";
+
+    public BufferedImage weapon;
     public Player(GamePanel gp,KeyHandler keyH){
 
         this.gamePanel=gp;
@@ -57,8 +59,9 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
+
+
     public void update()  {
-        if (keyH.upPressed == true || keyH.downPressed == true   ||keyH.leftPressed == true || keyH.rightPressed == true) {
             if (keyH.upPressed == true) {
                 direction = "up";
 
@@ -77,30 +80,30 @@ public class Player extends Entity {
             collisionOn=false;
             gamePanel.collisionChecker.checkTile(this);
             int objIndex=gamePanel.collisionChecker.checkObject(this,true);
-            if (keyH.pick==true){
+            if(keyH.pick){
                 pickup(objIndex);
             }
 
 
             if (collisionOn == false) {
-                if (keyH.upPressed == true) {
+                if (keyH.upPressed) {
                     jump();
                 }
-                if (keyH.downPressed == true) {
+                if (keyH.downPressed) {
                         worldY += speed;
 
                 }
-                if (keyH.leftPressed == true) {
+                if (keyH.leftPressed) {
                         worldX -= speed;
                 }
-                if (keyH.rightPressed == true) {
+                if (keyH.rightPressed) {
                     worldX += speed;
                     //direction is for changing img according to the arrow
                     //helps to increase the x-axis if right key is pressed
                 }
 
             }
-        }
+
 
 
 
@@ -119,7 +122,7 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
-        }
+    }
 
 
     void jump()  {
@@ -203,18 +206,27 @@ public class Player extends Entity {
                 }
                 break;
         }
-//        g2d.drawRect(screenX,screenY, gamePanel.tileSize,gamePanel.tileSize);
         g2d.drawImage(image,screenX,screenY,gamePanel.tileSize, gamePanel.tileSize, null);
+        g2d.drawImage(weapon,screenX,screenY+9, gamePanel.tileSize,gamePanel.tileSize ,null);
+
         if (keyH.upPressed ==true){
             g2d.drawImage(fly,screenX,screenY+48,gamePanel.tileSize, gamePanel.tileSize, null);
 
         }
     }
+    public  void getGun(){
+
+    }
 
     public void pickup(int i){
-
         if (i!=999){
-            gamePanel.obj[i]=null;
+            String objectName=gamePanel.obj[i].name;
+            switch (objectName){
+
+                case "gun":
+                    weapon=gamePanel.obj[i].image;
+                    gamePanel.obj[i]=null;
+            }
         }
 
     }
