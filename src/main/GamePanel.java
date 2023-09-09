@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileM;
     Background background=new Background(this);
 
+    MouseHandler mouseH = new MouseHandler();
     KeyHandler keyH=keyH=new KeyHandler();
     public Player player = new Player(this,keyH);
 
@@ -47,6 +48,8 @@ public class GamePanel extends JPanel implements Runnable {
         setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
         addKeyListener(keyH);
+        addMouseListener(mouseH);
+        addMouseMotionListener(mouseH);
         setFocusable(true);
         tileM=new TileManager(this,keyH);
     }

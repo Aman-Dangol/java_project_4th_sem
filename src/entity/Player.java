@@ -1,6 +1,7 @@
 package entity;
 import main.GamePanel;
 import main.KeyHandler;
+import main.Weapon;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -8,13 +9,14 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity {
-    GamePanel gamePanel;
+    public GamePanel gamePanel;
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
     String prevDirection="left";
 
-    public BufferedImage weapon;
+
+    Weapon weapon = new Weapon(this);
     public Player(GamePanel gp,KeyHandler keyH){
 
         this.gamePanel=gp;
@@ -207,16 +209,14 @@ public class Player extends Entity {
                 break;
         }
         g2d.drawImage(image,screenX,screenY,gamePanel.tileSize, gamePanel.tileSize, null);
-        g2d.drawImage(weapon,screenX,screenY+9, gamePanel.tileSize,gamePanel.tileSize ,null);
+        weapon.drawWeapon(g2d,weapon.gun);
 
         if (keyH.upPressed ==true){
             g2d.drawImage(fly,screenX,screenY+48,gamePanel.tileSize, gamePanel.tileSize, null);
 
         }
     }
-    public  void getGun(){
 
-    }
 
     public void pickup(int i){
         if (i!=999){
@@ -224,12 +224,13 @@ public class Player extends Entity {
             switch (objectName){
 
                 case "gun":
-                    weapon=gamePanel.obj[i].image;
+                    weapon.gun=gamePanel.obj[i].image;
                     gamePanel.obj[i]=null;
             }
         }
 
     }
+
 
 
 }
