@@ -15,6 +15,9 @@ public class Player extends Entity {
     public final int screenY;
     String prevDirection="left";
 
+    public double angle;
+
+
 
     Weapon weapon = new Weapon(this);
     public Player(GamePanel gp,KeyHandler keyH){
@@ -64,6 +67,9 @@ public class Player extends Entity {
 
 
     public void update()  {
+        double dx= gamePanel.mouseH.X- weapon.centerX;
+        double dy=gamePanel.mouseH.Y- weapon.centerY;
+        angle=Math.atan2(dy,dx);
             if (keyH.upPressed == true) {
                 direction = "up";
 
@@ -209,12 +215,13 @@ public class Player extends Entity {
                 break;
         }
         g2d.drawImage(image,screenX,screenY,gamePanel.tileSize, gamePanel.tileSize, null);
-        weapon.drawWeapon(g2d,weapon.gun);
-
         if (keyH.upPressed ==true){
             g2d.drawImage(fly,screenX,screenY+48,gamePanel.tileSize, gamePanel.tileSize, null);
 
         }
+        weapon.drawWeapon(g2d);
+
+
     }
 
 
@@ -224,7 +231,8 @@ public class Player extends Entity {
             switch (objectName){
 
                 case "gun":
-                    weapon.gun=gamePanel.obj[i].image;
+                    weapon.gunRight =gamePanel.obj[i].rightImage;
+                    weapon.gunLeft=gamePanel.obj[i].leftImage;
                     gamePanel.obj[i]=null;
             }
         }

@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileM;
     Background background=new Background(this);
 
-    MouseHandler mouseH = new MouseHandler();
+    public MouseHandler mouseH = new MouseHandler();
     KeyHandler keyH=keyH=new KeyHandler();
     public Player player = new Player(this,keyH);
 
