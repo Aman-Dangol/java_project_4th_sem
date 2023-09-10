@@ -3,6 +3,7 @@ package main;
 import entity.Player;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Weapon {
@@ -17,6 +18,9 @@ public class Weapon {
     public void drawWeapon(Graphics2D g2d){
         centerX=player.screenX+( player.gamePanel.tileSize/2);
         centerY=player.screenY+( player.gamePanel.tileSize/2);
+
+        AffineTransform originalTransform = g2d.getTransform();
+
         g2d.rotate(player.angle,centerX,centerY);
 
         if (player.gamePanel.mouseH.X>=500){
@@ -27,6 +31,7 @@ public class Weapon {
             g2d.drawImage(gunLeft,player.screenX+player.gamePanel.tileSize+4,player.screenY-9, -player.gamePanel.tileSize, player.gamePanel.tileSize ,null);
         }
 
+        g2d.setTransform(originalTransform);
 
     }
 }

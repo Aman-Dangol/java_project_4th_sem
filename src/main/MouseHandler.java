@@ -6,7 +6,7 @@ import java.awt.event.MouseMotionListener;
 
 public class MouseHandler implements MouseListener, MouseMotionListener {
 
-    boolean mousePressed;
+    public boolean mousePressed;
     public  int X ,Y;
 
     @Override

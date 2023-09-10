@@ -1,6 +1,7 @@
 package entity;
 import main.GamePanel;
 import main.KeyHandler;
+import main.MouseHandler;
 import main.Weapon;
 
 import javax.imageio.ImageIO;
@@ -11,19 +12,28 @@ import java.io.IOException;
 public class Player extends Entity {
     public GamePanel gamePanel;
     KeyHandler keyH;
+
     public final int screenX;
     public final int screenY;
     String prevDirection="left";
+
+    public int health=100;
+    public  int stamina =100;
+
+    boolean hasGun=false;
+
+    MouseHandler mouseH;
 
     public double angle;
 
 
 
     Weapon weapon = new Weapon(this);
-    public Player(GamePanel gp,KeyHandler keyH){
+    public Player(GamePanel gp,KeyHandler keyH,MouseHandler mouseH){
 
         this.gamePanel=gp;
         this.keyH=keyH;
+        this.mouseH=mouseH;
 
         screenX= gp.screenWidth/2;
         screenY=gp.screenHeight/2;
@@ -93,6 +103,7 @@ public class Player extends Entity {
             }
 
 
+
             if (collisionOn == false) {
                 if (keyH.upPressed) {
                     jump();
@@ -134,8 +145,10 @@ public class Player extends Entity {
 
 
     void jump()  {
-        fallingSpeed=jump;
-        worldY +=fallingSpeed;
+        if (stamina>0){
+            fallingSpeed=jump;
+            worldY +=fallingSpeed;
+        }
     }
     public void falling()  {
         if (gamePanel.collisionChecker.checkFall(this)){
@@ -156,6 +169,7 @@ public class Player extends Entity {
         BufferedImage image = null;
         switch (direction){
             case "up":
+
                 if(prevDirection=="left") {
                     if (spriteNum == 1) {
                         image = left1;
@@ -216,8 +230,17 @@ public class Player extends Entity {
         }
         g2d.drawImage(image,screenX,screenY,gamePanel.tileSize, gamePanel.tileSize, null);
         if (keyH.upPressed ==true){
-            g2d.drawImage(fly,screenX,screenY+48,gamePanel.tileSize, gamePanel.tileSize, null);
 
+                if (stamina>0){
+                    stamina--;
+                    g2d.drawImage(fly,screenX,screenY+48,gamePanel.tileSize, gamePanel.tileSize, null);
+
+                }
+        }
+        else
+        {
+            if (stamina<100)
+            stamina++;
         }
         weapon.drawWeapon(g2d);
 
@@ -231,12 +254,24 @@ public class Player extends Entity {
             switch (objectName){
 
                 case "gun":
+                    hasGun=true;
                     weapon.gunRight =gamePanel.obj[i].rightImage;
                     weapon.gunLeft=gamePanel.obj[i].leftImage;
                     gamePanel.obj[i]=null;
             }
         }
 
+    }
+    public  boolean checkGun(){
+        if (hasGun)
+            return true;
+        else
+            return false;
+
+    }
+    public void shoot(){
+        if (checkGun())
+            gamePanel.soundSE(1);
     }
 
 

@@ -25,7 +25,7 @@ public class TileManager {
     public TileManager(GamePanel gp,KeyHandler keyH){
         this.gp=gp;
         this.keyH=keyH;
-        tile=new Tile[10];
+        tile=new Tile[15];
         mapTileNum =new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
         loadMap("/maps/mapMM.txt");
@@ -94,6 +94,15 @@ public class TileManager {
             tile[7]=new Tile();
             tile[7].image= ImageIO.read(getClass().getResourceAsStream("/tiles/right_straight.png"));
             tile[7].collision=true;
+
+            tile[8]=new Tile();
+            tile[8].image= ImageIO.read(getClass().getResourceAsStream("/tiles/bottom_left.png"));
+            tile[8].collision=true;
+
+            tile[9]=new Tile();
+            tile[9].image= ImageIO.read(getClass().getResourceAsStream("/tiles/bottom_right.png"));
+            tile[9].collision=true;
+
 
         }catch (IOException e){
             e.printStackTrace();
