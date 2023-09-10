@@ -232,10 +232,12 @@ public class Player extends Entity {
         if (keyH.upPressed ==true){
 
                 if (stamina>0){
-                    stamina--;
+                    stamina-=2;
                     g2d.drawImage(fly,screenX,screenY+48,gamePanel.tileSize, gamePanel.tileSize, null);
 
                 }
+                else
+                    stamina=0;
         }
         else
         {
@@ -258,6 +260,7 @@ public class Player extends Entity {
                     weapon.gunRight =gamePanel.obj[i].rightImage;
                     weapon.gunLeft=gamePanel.obj[i].leftImage;
                     gamePanel.obj[i]=null;
+                    gamePanel.ui.showMessage("you have a gun");
             }
         }
 

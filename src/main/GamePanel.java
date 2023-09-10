@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     Sound Music = new Sound();
     Sound se = new Sound();
 
-    UI ui= new UI(this);
+    public UI ui= new UI(this);
 
     public CollisionChecker collisionChecker = new CollisionChecker(this);
 
