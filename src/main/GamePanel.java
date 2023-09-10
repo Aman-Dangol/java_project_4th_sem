@@ -65,7 +65,10 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
+        long drawStart=0;
+        if (keyH.checkDrawTime==true){
+            drawStart = System.currentTimeMillis();
+        }
 
         Graphics2D g2d = (Graphics2D) g;
         background.draw(g2d);
@@ -77,7 +80,14 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         player.draw(g2d);
-        ui.draw(g2);
+        ui.draw(g2d);
+
+        if (keyH.checkDrawTime==true){
+            long drawEnd= System.currentTimeMillis();
+            long passed=drawEnd-drawStart;
+            g2d.drawString("draw time: "+passed,10,400);
+            System.out.println(passed);
+        }
 
         g2d.dispose();
     }
@@ -85,7 +95,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         double drawInterval = 1000 / FPS;//draw screen avery 0.01666 times==draw screen 60 times per second
         double nextDrawTime = System.currentTimeMillis() + drawInterval;//upper limit
-        while (true) {//as long as gameThread obj exists it repeats the process,core component go game
+        while (thread!=null) {//as long as gameThread obj exists it repeats the process,core component go game
             //update character position and drawing with updated information
             update();
 

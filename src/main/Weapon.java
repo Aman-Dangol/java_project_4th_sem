@@ -24,7 +24,7 @@ public class Weapon {
         g2d.rotate(player.angle,centerX,centerY);
 
         if (player.gamePanel.mouseH.X>=500){
-            g2d.drawImage(gunRight,player.screenX,player.screenY+9, player.gamePanel.tileSize,player.gamePanel.tileSize ,null);
+            g2d.drawImage(gunRight,player.screenX,player.screenY+9 ,null);
 
         }
         else {

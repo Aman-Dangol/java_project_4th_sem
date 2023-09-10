@@ -1,8 +1,5 @@
 package entity;
-import main.GamePanel;
-import main.KeyHandler;
-import main.MouseHandler;
-import main.Weapon;
+import main.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -56,23 +53,45 @@ public class Player extends Entity {
 
     }
     void getPlayerImage(){
+//        try {
+//            upLeft1= ImageIO.read(getClass().getResourceAsStream("/player/up_left_1.png"));
+//            upLeft2= ImageIO.read(getClass().getResourceAsStream("/player/up_left_2.png"));
+//            upRight1= ImageIO.read(getClass().getResourceAsStream("/player/up_right_1.png"));
+//            upRight2= ImageIO.read(getClass().getResourceAsStream("/player/up_right_1.png"));
+//            right1= ImageIO.read(getClass().getResourceAsStream("/player/right_1.png"));
+//            right2= ImageIO.read(getClass().getResourceAsStream("/player/right_3.png"));
+//            right3= ImageIO.read(getClass().getResourceAsStream("/player/right_2.png"));
+//            left1= ImageIO.read(getClass().getResourceAsStream("/player/left1.png"));
+//            left2= ImageIO.read(getClass().getResourceAsStream("/player/left_3.png"));
+//            left3= ImageIO.read(getClass().getResourceAsStream("/player/left_2.png"));
+//            fly=ImageIO.read(getClass().getResourceAsStream("/player/fly.png"));
+//
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        upLeft1= setup("up_left_1");
+        upLeft2=setup("up_left_2") ;
+        upRight1=setup("up_right_1") ;
+        upRight2= setup("up_right_1");
+        right1= setup("right_1");
+        right2= setup("right_2");
+        right3= setup("right_3");
+        left1= setup("left1");
+        left2= setup("left_2");
+        left3=setup("left_3");
+        fly=setup("fly");
+    }
+    public BufferedImage setup(String imageName){
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image=null;
         try {
-            upLeft1= ImageIO.read(getClass().getResourceAsStream("/player/up-left-1.png"));
-            upLeft2= ImageIO.read(getClass().getResourceAsStream("/player/up-left-2.png"));
-            upRight1= ImageIO.read(getClass().getResourceAsStream("/player/up-right-1.png"));
-            upRight2= ImageIO.read(getClass().getResourceAsStream("/player/up-right-2.png"));
-            right1= ImageIO.read(getClass().getResourceAsStream("/player/right-1.png"));
-            right2= ImageIO.read(getClass().getResourceAsStream("/player/right-3.png"));
-            right3= ImageIO.read(getClass().getResourceAsStream("/player/right-2.png"));
-            left1= ImageIO.read(getClass().getResourceAsStream("/player/left1.png"));
-            left2= ImageIO.read(getClass().getResourceAsStream("/player/left-3.png"));
-            left3= ImageIO.read(getClass().getResourceAsStream("/player/left-2.png"));
-            fly=ImageIO.read(getClass().getResourceAsStream("/player/fly.png"));
-
-
+            image=ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
+            image=uTool.scaledImage(image, gamePanel.tileSize,gamePanel.tileSize);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return image;
     }
 
 
@@ -228,12 +247,12 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2d.drawImage(image,screenX,screenY,gamePanel.tileSize, gamePanel.tileSize, null);
+        g2d.drawImage(image,screenX,screenY, null);
         if (keyH.upPressed ==true){
 
                 if (stamina>0){
                     stamina-=2;
-                    g2d.drawImage(fly,screenX,screenY+48,gamePanel.tileSize, gamePanel.tileSize, null);
+                    g2d.drawImage(fly,screenX,screenY+48, null);
 
                 }
                 else
