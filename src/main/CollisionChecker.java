@@ -85,6 +85,7 @@ public class CollisionChecker {
         entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
         tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
         tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+//        System.out.println(entityBottomRow);
         if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
             return false;
         } else
@@ -119,7 +120,6 @@ public class CollisionChecker {
                             }
                             if (player==true){
                                 index=i;
-
                             }
                         }
                         break;

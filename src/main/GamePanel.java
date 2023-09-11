@@ -1,5 +1,6 @@
 package main;
 
+import entity.Bullet;
 import entity.Player;
 import tile.Background;
 import tile.TileManager;
@@ -27,6 +28,8 @@ public class GamePanel extends JPanel implements Runnable {
     public MouseHandler mouseH = new MouseHandler();
     KeyHandler keyH=keyH=new KeyHandler();
     public Player player = new Player(this,keyH,mouseH);
+
+    public Bullet bullet = new Bullet(player,this,mouseH);
 
     Sound Music = new Sound();
     Sound se = new Sound();
@@ -59,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame(){
         aSetter.setObject();
-//        playMusic(4);
+        playMusic(4);
     }
 
     @Override
@@ -80,6 +83,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         player.draw(g2d);
+        if (mouseH.mousePressed){
+            bullet.draw(g2d);
+        }
         ui.draw(g2d);
 
         if (keyH.checkDrawTime==true){
@@ -116,9 +122,7 @@ public class GamePanel extends JPanel implements Runnable {
     void update()  {
         player.update();
         player.falling();
-        if (mouseH.mousePressed){
-           player.shoot();
-        }
+
     }
     public void startingThread(){
         thread=new Thread(this);

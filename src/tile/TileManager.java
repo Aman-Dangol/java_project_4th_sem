@@ -108,7 +108,7 @@ public class TileManager {
 //            tile[6]=new Tile();
 //            tile[6].image= ImageIO.read(getClass().getResourceAsStream("/tiles/left_straight.png"));
 //            tile[6].collision=true;
-            setup(6,"left_straight",false);
+            setup(6,"left_straight",true);
 
 //
 //            tile[7]=new Tile();

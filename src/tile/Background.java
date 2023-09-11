@@ -10,7 +10,6 @@ import java.io.IOException;
 
 
     public class Background{
-
         BufferedImage background;
         GamePanel gp;
         public Background(GamePanel gp) throws IOException {
@@ -20,9 +19,5 @@ import java.io.IOException;
         public void draw(Graphics g2){
             g2.drawImage(background,0,0,gp.screenWidth,gp.screenHeight,null);
         }
-
-
-
-
     }
 

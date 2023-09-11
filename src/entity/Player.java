@@ -25,6 +25,7 @@ public class Player extends Entity {
 
 
 
+
     Weapon weapon = new Weapon(this);
     public Player(GamePanel gp,KeyHandler keyH,MouseHandler mouseH){
 
@@ -292,8 +293,8 @@ public class Player extends Entity {
 
     }
     public void shoot(){
-        if (checkGun())
-            gamePanel.soundSE(1);
+//        if (checkGun())
+//            gamePanel.soundSE(1);
     }
 
 
