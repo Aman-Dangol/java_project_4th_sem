@@ -15,7 +15,7 @@ public class Player extends Entity {
     public int health=100;
     public  int stamina =100;
 
-    boolean hasGun=false;
+    public boolean hasGun=false;
 
 
     public double angle;
@@ -104,9 +104,14 @@ public class Player extends Entity {
                 pickup(objIndex);
             }
 
+            int enemyIndex = gp.collisionChecker.checkEntity(this,gp.enemy);
+
+            contactEnemy(enemyIndex);
 
 
-            if (collisionOn == false) {
+
+
+        if (collisionOn == false) {
                 if (keyH.upPressed) {
                     jump();
                 }
@@ -277,6 +282,11 @@ public class Player extends Entity {
     public void shoot(){
 //        if (checkGun())
 //            gp.soundSE(1);
+    }
+    public void contactEnemy(int enemyIndex){
+        if (enemyIndex!=999){
+            health-=10;
+        }
     }
 
 

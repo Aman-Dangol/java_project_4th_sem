@@ -11,7 +11,6 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
     public boolean mousePressed;
     public  int X ,Y;
     Bullet[] bullet;
-    int index=0;
     GamePanel gp ;
     public MouseHandler(Bullet[] bullet,GamePanel gp){
         this.bullet = bullet;
@@ -26,17 +25,28 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        X = e.getX();
-        Y=e.getY();
-        if (gp.bulletIndex<bullet.length){
-            bullet[gp.bulletIndex].onAir = true;
-            bullet[gp.bulletIndex].destination(X, Y);
-            gp.bulletIndex++;
+        if (gp.gameState== gp.titleState){
+
         }
-        else {
-            gp.ui.showMessage("reload");
+        if (gp.gameState== gp.playState){
+            X = e.getX();
+            Y = e.getY();
+            if (gp.player.hasGun){
+                if (gp.bulletIndex < bullet.length) {
+                    bullet[gp.bulletIndex].onAir = true;
+                    bullet[gp.bulletIndex].destination(X, Y);
+                    gp.bulletIndex++;
+                } else {
+                    gp.ui.showMessage("reload [R]");
+                }
+            }
+            else {
+                gp.ui.showMessage("pickUp gun [E]");
+
+
+            }
+            mousePressed = true;
         }
-        mousePressed=true;
     }
 
     @Override

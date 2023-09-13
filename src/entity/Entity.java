@@ -18,19 +18,26 @@ public class Entity {
     public int spriteCounter=0;
     public int spriteNum=1;
     String prevDirection="left";
+    public int actionLockCounter;
 
-    BufferedImage fly;
-    BufferedImage upLeft1;
-    BufferedImage upLeft2;
-    BufferedImage upLeft3;
-    BufferedImage upRight1;
-    BufferedImage upRight2;
-    protected BufferedImage left1;
+
+    public String name="";
+
+    public  int maxLife;
+    public  int life;
+
+    public BufferedImage fly;
+    public BufferedImage upLeft1;
+    public BufferedImage upLeft2;
+    public BufferedImage upLeft3;
+    public BufferedImage upRight1;
+    public BufferedImage upRight2;
+    public BufferedImage left1;
     public BufferedImage left2;
-    BufferedImage left3;
+    public BufferedImage left3;
     public BufferedImage right1;
     public BufferedImage right2;
-    BufferedImage right3;
+    public BufferedImage right3;
     public Rectangle solidArea= new Rectangle(0,0,48,48);
     public int solidAreaDefaultX,solidAreaDefaultY;
     public boolean collisionOn=false;
@@ -61,8 +68,7 @@ public class Entity {
         ) {
             switch (direction){
                 case "up":
-
-                    if(prevDirection=="left") {
+//                    if(prevDirection=="left") {
                         if (spriteNum == 1) {
                             image = left1;
                         }
@@ -72,17 +78,17 @@ public class Entity {
                         if (spriteNum == 3) {
                             image = left1;
                         }
-                    } else if (prevDirection=="right") {
-                        if (spriteNum == 1) {
-                            image = right1;
-                        }
-                        if (spriteNum == 2) {
-                            image = right1;
-                        }
-                        if (spriteNum == 3) {
-                            image = right1;
-                        }
-                    }
+//                    } else if (prevDirection=="right") {
+//                        if (spriteNum == 1) {
+//                            image = right1;
+//                        }
+//                        if (spriteNum == 2) {
+//                            image = right1;
+//                        }
+//                        if (spriteNum == 3) {
+//                            image = right1;
+//                        }
+//                    }
                     break;
                 case "down":
                     image = right1;
@@ -122,7 +128,38 @@ public class Entity {
     public void update(){
         setAction();
         collisionOn=false;
+        gp.collisionChecker.checkTile(this);
+        gp.collisionChecker.checkObject(this,false);
+        gp.collisionChecker.checkEntity(this,gp.enemy);
+        gp.collisionChecker.checkPlayer(this);
+        if (collisionOn==false){
 
+            switch (direction){
+                case "up":
+                    worldY -= speed;
+                    break;
+                case "down":
+                    worldY += speed;
+                    break;
+                case "left" :
+                    worldX -= speed;
+                    break;
+                case "right":
+                    worldX+= speed;
+                    break;
+            }
+        }
+
+        spriteCounter++;
+        if (spriteCounter > 12) {//player image changes every 10 frames
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            } else if (spriteNum == 2) {
+                spriteNum = 1;
+
+            }
+            spriteCounter = 0;
+        }
 
     }
 

@@ -2,6 +2,7 @@ package main;
 
 //import entity.Bullet;
 import entity.Bullet;
+import entity.Entity;
 import entity.Player;
 import tile.Background;
 import tile.TileManager;
@@ -52,6 +53,8 @@ public class GamePanel extends JPanel implements Runnable {
     AssetSetter aSetter= new AssetSetter(this);
 
     public SuperObject[] obj = new SuperObject[10];
+
+    public Entity[] enemy = new Entity[20];
     Thread thread;
 
 
@@ -78,7 +81,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame(){
         aSetter.setObject();
-        gameState=playState;
+        aSetter.setEnemy();
+
+        gameState=titleState;
     }
     void makeBullet(){
         int i =0;
@@ -109,6 +114,12 @@ public class GamePanel extends JPanel implements Runnable {
                 if (obj[i]!=null){
                     obj[i].draw(g2d,this);
                 }
+
+            }
+            for (int i=0;i< enemy.length;i++){
+                if (enemy[i]!=null){
+                    enemy[i].draw(g2d);
+                }
             }
 
             player.draw(g2d);
@@ -126,7 +137,7 @@ public class GamePanel extends JPanel implements Runnable {
             long drawEnd= System.currentTimeMillis();
             long passed=drawEnd-drawStart;
             g2d.drawString("draw time: "+passed,10,400);
-            System.out.println(passed);
+//            System.out.println(passed);
         }
 
 //        g2d.dispose();
@@ -156,6 +167,11 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState==playState){
             player.update();
             player.falling();
+        }
+        for (int i =0;i<enemy.length;i++){
+            if (enemy[i]!=null){
+                enemy[i].update();
+            }
         }
         if (gameState==pauseState){
 

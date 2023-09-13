@@ -1,17 +1,22 @@
 package main;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
-public class UI {
+public class UI   {
     GamePanel gp;
     Font arial_40 , arial_80B;
 
     public boolean messageOn=false;
     public String message="";
+
+    public int commandNum=0;
 
     public int messageCounter=0;
 
@@ -20,6 +25,7 @@ public class UI {
 
     public boolean gameFinished=false;
     double playTime;
+
 
     UtilityTool utilityTool = new UtilityTool();
     DecimalFormat decimalFormat = new DecimalFormat("#0.00");
@@ -101,13 +107,18 @@ public class UI {
 
 
         if (gp.gameState==gp.titleState){
+
+
+
             drawTitleScreen();
         }
         if (gp.gameState==gp.playState){
             g2.drawImage(health, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-            g2.drawString(" : " + gp.player.health, 70, 50);
+            g2.drawString(" : " + healthCalculate(gp.player.health), 70, 50);
             g2.drawImage(stamina, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
             g2.drawString(" : " + gp.player.stamina, 70, 90);
+//            g2.drawImage(bullets, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
+            g2.drawString(" bullets : " + (gp.bullet.length-gp.bulletIndex), 70, 120);
 
             playTime+=(double)1/60;
             g2.drawString("time : "+decimalFormat.format(playTime),gp.tileSize*15,65);
@@ -147,12 +158,21 @@ public class UI {
     }
 
     public void drawDialogueScreen() {
+
+
         //window
         int x=gp.tileSize*2;
         int y=gp.tileSize/2;
         int width=gp.screenWidth-(gp.tileSize*4);
         int height=gp.tileSize*5;
         drawSubWindow(x,y,width,height);
+
+    }
+    public int healthCalculate(int health){
+        if (health<0){
+            health=0;
+        }
+        return health;
 
     }
 
@@ -165,6 +185,34 @@ public class UI {
     }
 
     public void drawTitleScreen(){
+        int x=0,y=0;
+        String play,quit;
+//
+        play= "New Game";
+        x= (int) (gp.tileSize*9.5);
+        y+=gp.tileSize*9;
+        g2.setColor(Color.black);
+        g2.drawString(play,x+2,y+2);
+        if (commandNum == 0){
+            g2.drawString(">",x-gp.tileSize,y);
+        }
+        g2.setColor(Color.white);
+
+        g2.drawString(play,x,y);
+
+        quit= "Load";
+        x= (int) (gp.tileSize*9.5);
+        y+=gp.tileSize;
+        g2.setColor(Color.black);
+        g2.drawString(quit,x+2,y+2);
+        g2.setColor(Color.white);
+        g2.drawString(quit,x,y);if (commandNum == 1){
+            g2.drawString(">",x-gp.tileSize,y);
+        }
+    }
+
+   void getBulletNum(){
 
     }
+
 }
