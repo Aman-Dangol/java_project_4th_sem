@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Bullet extends Entity {
     Player player;
-    GamePanel gp;
+    public GamePanel gp;
 
     BufferedImage image;
     public Boolean onAir=false;
@@ -20,7 +20,7 @@ public class Bullet extends Entity {
     public int bulletX;
     public int bulletY;
     double angle;
-    int bulletRange=100;
+    int bulletRange=300;
 
     public Bullet(Player player, GamePanel gp)  {
         super(gp);
@@ -42,30 +42,34 @@ public class Bullet extends Entity {
 
     }
     public void draw(Graphics2D g2){
-                if (onAir) {
-                    moveBullet();
-                    if (i!=bulletRange){
-                        gp.collisionChecker.checkBulletCollision(this);
-                        g2.drawImage(image,bulletX-24,bulletY-24,gp.tileSize,gp.tileSize,null);
-                    i++;
-                }
-                    else {
-                        onAir=false;
-                        i=0;
-                        collisionOn=false;
-                    }
+        if (onAir) {
+            moveBullet();
+            if (i!=bulletRange){
+                gp.collisionChecker.checkBulletCollision(this);
+                if (collisionOn){
 
                 }
+                else
+                    g2.drawImage(image,bulletX-24,bulletY-24,gp.tileSize,gp.tileSize,null);
+                i++;
+            }
+            else {
+                onAir=false;
+                i=0;
+                collisionOn=false;
+            }
 
 
-
-         }
+    }
+    }
          public void destination(int x,int y){
         mouseX=(x/speed)*speed;
         mouseY=(y/speed)*speed;
         bulletX=player.weapon.centerX;
         bulletY= player.weapon.centerY;
          }
+
+
          public void moveBullet(){
              angle = Math.atan2(mouseY - bulletY, mouseX - bulletX);
              bulletX += ((int) (speed * Math.cos(angle)));

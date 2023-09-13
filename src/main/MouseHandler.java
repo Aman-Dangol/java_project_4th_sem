@@ -10,9 +10,12 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     public boolean mousePressed;
     public  int X ,Y;
-    Bullet bullet;
-    MouseHandler(Bullet bullet){
-        this.bullet=bullet;
+    Bullet[] bullet;
+    int index=0;
+    GamePanel gp ;
+    public MouseHandler(Bullet[] bullet,GamePanel gp){
+        this.bullet = bullet;
+        this.gp = gp;
 
     }
 
@@ -23,10 +26,16 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        bullet.onAir=true;
         X = e.getX();
         Y=e.getY();
-        bullet.destination(X,Y);
+        if (gp.bulletIndex<bullet.length){
+            bullet[gp.bulletIndex].onAir = true;
+            bullet[gp.bulletIndex].destination(X, Y);
+            gp.bulletIndex++;
+        }
+        else {
+            gp.ui.showMessage("reload");
+        }
         mousePressed=true;
     }
 
@@ -53,8 +62,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mouseMoved(MouseEvent e) {
-        X=e.getX();
+    public void mouseMoved(MouseEvent e) { X=e.getX();
         Y=e.getY();
     }
 }

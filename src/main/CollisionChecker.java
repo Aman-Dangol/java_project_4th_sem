@@ -294,9 +294,7 @@ public class CollisionChecker {
     }
 
     public void checkBulletCollision(Bullet entity) {
-//        System.out.println(entity.worldY/48 + " "+entity.worldX/48);
         int x=gp.tileM.mapTileNum[(entity.worldX/48)][(entity.worldY/48)];
-        System.out.println(x);
         if (gp.tileM.tile[x].collision==true){
             entity.collisionOn=true;
         }

@@ -37,6 +37,10 @@ public class KeyHandler implements KeyListener {
             if(e.getKeyCode()==KeyEvent.VK_P) {
                     gp.gameState= gp.pauseState;
             }
+            if(e.getKeyCode()==KeyEvent.VK_R) {
+                System.out.println("Reload");
+                gp.bulletIndex=0;
+            }
 
         }
 

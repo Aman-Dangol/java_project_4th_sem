@@ -98,17 +98,30 @@ public class UI {
         g2.setColor(Color.black);
         g2.setFont(arial_40);
         g2.setColor(Color.black);
-        g2.drawImage(health, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-        g2.drawString(" : " + gp.player.health, 70, 50);
-        g2.drawImage(stamina, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
-
-        playTime+=(double)1/60;
-        g2.drawString("time : "+decimalFormat.format(playTime),gp.tileSize*15,65);
 
 
-        g2.drawString(" : " + gp.player.stamina, 70, 90);
+        if (gp.gameState==gp.titleState){
+            drawTitleScreen();
+        }
         if (gp.gameState==gp.playState){
+            g2.drawImage(health, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+            g2.drawString(" : " + gp.player.health, 70, 50);
+            g2.drawImage(stamina, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
+            g2.drawString(" : " + gp.player.stamina, 70, 90);
+
+            playTime+=(double)1/60;
+            g2.drawString("time : "+decimalFormat.format(playTime),gp.tileSize*15,65);
             // do play state stuff
+
+            if (messageOn) {
+                g2.setFont(g2.getFont().deriveFont(18F));
+                g2.drawString(message, gp.tileSize * 8, gp.tileSize * 3);
+                messageCounter++;
+                if (messageCounter > 120) {
+                    messageCounter = 0;
+                    messageOn = false;
+                }
+            }
         }
         if (gp.gameState==gp.pauseState){
             drawPauseScreen();
@@ -148,6 +161,10 @@ public class UI {
         Color c = new Color(0,0,0);
         g2.setColor(c);
         g2.fillRoundRect(x,y,width,height,35,25);
+
+    }
+
+    public void drawTitleScreen(){
 
     }
 }

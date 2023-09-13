@@ -18,24 +18,28 @@ public class GamePanel extends JPanel implements Runnable {
 
    public int screenWidth = column * tileSize;
 
+   Graphics2D g2d;
+
     public int screenHeight = rows * tileSize;
 
    public final int maxWorldCol =50;
     public final int maxWorldRow=70;
-    int FPS = 60;
+    int FPS = 60;;
     TileManager tileM;
     public int gameState;
+    public  int bulletIndex=0;
     public final int playState=1;
     public final int pauseState=2;
+    public final int titleState=0;
 
     public  final int dialogueState=3;
-    Background background=new Background(this);
+    Background background;
 
     KeyHandler keyH=keyH=new KeyHandler(this);
     public Player player = new Player(this,keyH);
 
-    public Bullet bullet = new Bullet(player,this);
-    public MouseHandler mouseH = new MouseHandler(bullet);
+    public Bullet[] bullet = new Bullet[20];
+    public MouseHandler mouseH = new MouseHandler(bullet,this);
 
 
     Sound Music = new Sound();
@@ -53,13 +57,18 @@ public class GamePanel extends JPanel implements Runnable {
 
 
 
-    GamePanel() throws IOException {
 
-
+    GamePanel() {
 
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(Color.WHITE);
+        makeBullet();
         this.setDoubleBuffered(true);
+        try {
+            background = new Background(this);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         addKeyListener(keyH);
         addMouseListener(mouseH);
         addMouseMotionListener(mouseH);
@@ -70,7 +79,13 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame(){
         aSetter.setObject();
         gameState=playState;
-//        playMusic(4);
+    }
+    void makeBullet(){
+        int i =0;
+        while ( i <bullet.length){
+            bullet[i]= new Bullet(player,this);
+            i++;
+        }
     }
 
     @Override
@@ -83,16 +98,30 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2d = (Graphics2D) g;
         background.draw(g2d);
-        tileM.draw(g2d);
-        for (int i=0;i< obj.length;i++){
-            if (obj[i]!=null){
-                obj[i].draw(g2d,this);
-            }
-        }
 
-        player.draw(g2d);
-        ui.draw(g2d);
-            bullet.draw(g2d);
+        if (gameState==titleState){
+            ui.draw(g2d);
+
+        }else
+        {
+            tileM.draw(g2d);
+            for (int i=0;i< obj.length;i++){
+                if (obj[i]!=null){
+                    obj[i].draw(g2d,this);
+                }
+            }
+
+            player.draw(g2d);
+            ui.draw(g2d);
+            if (player.checkGun()) {
+                int i =0;
+                while (i<bullet.length){
+                    bullet[i].draw(g2d);
+                    i++;
+                }
+            }
+
+        }
         if (keyH.checkDrawTime==true){
             long drawEnd= System.currentTimeMillis();
             long passed=drawEnd-drawStart;
@@ -100,7 +129,7 @@ public class GamePanel extends JPanel implements Runnable {
             System.out.println(passed);
         }
 
-        g2d.dispose();
+//        g2d.dispose();
     }
     @Override
     public void run() {
@@ -151,6 +180,8 @@ public class GamePanel extends JPanel implements Runnable {
         se.setFile(i);
         se.play();
     }
+
+
 }
 
 
