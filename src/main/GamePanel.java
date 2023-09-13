@@ -1,5 +1,6 @@
 package main;
 
+//import entity.Bullet;
 import entity.Bullet;
 import entity.Player;
 import tile.Background;
@@ -23,13 +24,19 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldRow=70;
     int FPS = 60;
     TileManager tileM;
+    public int gameState;
+    public final int playState=1;
+    public final int pauseState=2;
+
+    public  final int dialogueState=3;
     Background background=new Background(this);
 
-    public MouseHandler mouseH = new MouseHandler();
-    KeyHandler keyH=keyH=new KeyHandler();
-    public Player player = new Player(this,keyH,mouseH);
+    KeyHandler keyH=keyH=new KeyHandler(this);
+    public Player player = new Player(this,keyH);
 
-    public Bullet bullet = new Bullet(player,this,mouseH);
+    public Bullet bullet = new Bullet(player,this);
+    public MouseHandler mouseH = new MouseHandler(bullet);
+
 
     Sound Music = new Sound();
     Sound se = new Sound();
@@ -62,7 +69,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame(){
         aSetter.setObject();
-        playMusic(4);
+        gameState=playState;
+//        playMusic(4);
     }
 
     @Override
@@ -83,11 +91,8 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         player.draw(g2d);
-        if (mouseH.mousePressed){
-            bullet.draw(g2d);
-        }
         ui.draw(g2d);
-
+            bullet.draw(g2d);
         if (keyH.checkDrawTime==true){
             long drawEnd= System.currentTimeMillis();
             long passed=drawEnd-drawStart;
@@ -104,7 +109,6 @@ public class GamePanel extends JPanel implements Runnable {
         while (thread!=null) {//as long as gameThread obj exists it repeats the process,core component go game
             //update character position and drawing with updated information
             update();
-
             repaint();
             try {
                 double remainingTime = nextDrawTime - System.currentTimeMillis();
@@ -120,8 +124,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     void update()  {
-        player.update();
-        player.falling();
+        if (gameState==playState){
+            player.update();
+            player.falling();
+        }
+        if (gameState==pauseState){
+
+        }
 
     }
     public void startingThread(){

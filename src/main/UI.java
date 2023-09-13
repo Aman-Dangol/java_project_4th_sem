@@ -14,6 +14,8 @@ public class UI {
     public String message="";
 
     public int messageCounter=0;
+
+    public Graphics2D g2;
     BufferedImage health,stamina;
 
     public boolean gameFinished=false;
@@ -54,52 +56,98 @@ public class UI {
 
     }
     public void draw(Graphics2D g2){
-        if (gameFinished){
-            g2.setFont(arial_40);
-            g2.setColor(Color.white);
+//        if (gameFinished){
+//            g2.setFont(arial_40);
+//            g2.setColor(Color.white);
+//
+//
+//            String text;
+//            int textLength;
+//            int x,y;
+//
+//            text="You Won";
+//            textLength=(int) g2.getFontMetrics().getStringBounds(text,g2).getWidth();
+//
+//            x =(gp.screenWidth/2)-(textLength/2);
+//            y =gp.screenHeight/2 - (gp.tileSize*3);
+//            g2.drawString(text,x,y);
+//
+//            text="Your time is :"+decimalFormat.format(playTime);
+//            textLength=(int) g2.getFontMetrics().getStringBounds(text,g2).getWidth();
+//
+//            x =(gp.screenWidth/2)-(textLength/2);
+//            y =gp.screenHeight/2 + (gp.tileSize*4);
+//            g2.drawString(text,x,y);
+//            gp.thread=null;
+//        }else {
+//
+//
+//            if (messageOn) {
+//                g2.setFont(g2.getFont().deriveFont(18F));
+//                g2.drawString(message, gp.tileSize * 8, gp.tileSize * 3);
+//                messageCounter++;
+//                if (messageCounter > 120) {
+//                    messageCounter = 0;
+//                    messageOn = false;
+//                }
+//            }
+//        }
+        this.g2 = g2;
+
+        g2.setFont(arial_40);
+        g2.setColor(Color.black);
+        g2.setFont(arial_40);
+        g2.setColor(Color.black);
+        g2.drawImage(health, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+        g2.drawString(" : " + gp.player.health, 70, 50);
+        g2.drawImage(stamina, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
+
+        playTime+=(double)1/60;
+        g2.drawString("time : "+decimalFormat.format(playTime),gp.tileSize*15,65);
 
 
-            String text;
-            int textLength;
-            int x,y;
+        g2.drawString(" : " + gp.player.stamina, 70, 90);
+        if (gp.gameState==gp.playState){
+            // do play state stuff
+        }
+        if (gp.gameState==gp.pauseState){
+            drawPauseScreen();
 
-            text="You Won";
-            textLength=(int) g2.getFontMetrics().getStringBounds(text,g2).getWidth();
-
-            x =(gp.screenWidth/2)-(textLength/2);
-            y =gp.screenHeight/2 - (gp.tileSize*3);
-            g2.drawString(text,x,y);
-
-            text="Your time is :"+decimalFormat.format(playTime);
-            textLength=(int) g2.getFontMetrics().getStringBounds(text,g2).getWidth();
-
-            x =(gp.screenWidth/2)-(textLength/2);
-            y =gp.screenHeight/2 + (gp.tileSize*4);
-            g2.drawString(text,x,y);
-            gp.thread=null;
-        }else {
-            g2.setFont(arial_40);
-            g2.setColor(Color.black);
-            g2.drawImage(health, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-            g2.drawString(" : " + gp.player.health, 70, 50);
-            g2.drawImage(stamina, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
-
-            playTime+=(double)1/60;
-            g2.drawString("time : "+decimalFormat.format(playTime),gp.tileSize*15,65);
-
-
-            g2.drawString(" : " + gp.player.stamina, 70, 90);
-
-            if (messageOn) {
-                g2.setFont(g2.getFont().deriveFont(18F));
-                g2.drawString(message, gp.tileSize * 8, gp.tileSize * 3);
-                messageCounter++;
-                if (messageCounter > 120) {
-                    messageCounter = 0;
-                    messageOn = false;
-                }
-            }
         }
     }
 
+    public void drawPauseScreen(){
+
+        String text = "Paused";
+        int x= getXForCenterText(text);
+
+        int y=gp.screenHeight/2;
+        g2.drawString(text,x,y);
+
+    }
+
+    public int getXForCenterText(String text){
+        int length= (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
+        int x=gp.screenWidth/2-length/2;
+        return x;
+
+    }
+
+    public void drawDialogueScreen() {
+        //window
+        int x=gp.tileSize*2;
+        int y=gp.tileSize/2;
+        int width=gp.screenWidth-(gp.tileSize*4);
+        int height=gp.tileSize*5;
+        drawSubWindow(x,y,width,height);
+
+    }
+
+
+    public void drawSubWindow(int x,int y,int width,int height){
+        Color c = new Color(0,0,0);
+        g2.setColor(c);
+        g2.fillRoundRect(x,y,width,height,35,25);
+
+    }
 }

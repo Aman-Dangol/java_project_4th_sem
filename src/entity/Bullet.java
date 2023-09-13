@@ -3,53 +3,86 @@ package entity;
 import main.GamePanel;
 import main.MouseHandler;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Bullet extends Entity {
     Player player;
     GamePanel gp;
-    MouseHandler mh;
-    BufferedImage image;
 
-    public Bullet(Player player, GamePanel gp, MouseHandler mh){
+    BufferedImage image;
+    public Boolean onAir=false;
+    int i=0;
+    int mouseX,mouseY;
+    int pX ,pY;
+    public int bulletX;
+    public int bulletY;
+    double angle;
+    int bulletRange=100;
+
+    public Bullet(Player player, GamePanel gp)  {
+        super(gp);
+       super.speed = 8;
+
         this.gp=gp;
         this.player=player;
-        this.mh=mh;
+
+//        solidArea = new Rectangle(20,20,4,5);
+        solidAreaDefaultX=solidArea.x;
+        solidAreaDefaultY=solidArea.y;
+
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream("/Objects/bullet.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
     public void draw(Graphics2D g2){
-         int x=player.screenX;
-        int y=player.screenY;
-
-
-//        worldX =(mh.X/ gp.maxWorldCol)* gp.tileSize;
-//        worldY=(mh.Y/ gp.maxWorldRow)*gp.tileSize;
-//        int screenX= worldX - gp.player.worldX + gp.player.screenX;
-//        int screenY= worldY - gp.player.worldY + gp.player.screenY;
-//        System.out.println(worldX+" "+ worldY);
-            while (mh.X!=x && mh.Y!=y){
-                if (mh.X>x){
-                    x++;
+                if (onAir) {
+                    moveBullet();
+                    if (i!=bulletRange){
+                        gp.collisionChecker.checkBulletCollision(this);
+                        g2.drawImage(image,bulletX-24,bulletY-24,gp.tileSize,gp.tileSize,null);
+                    i++;
                 }
-                else
-                    x--;
-                if (mh.Y>y)
-                    y++;
-                else y--;
-                g2.fillOval(x, y, 20,20);
+                    else {
+                        onAir=false;
+                        i=0;
+                        collisionOn=false;
+                    }
 
-            }
-//            if (mh.X + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-//                    mh.Y + gp.tileSize > gp.player.worldY - gp.player.screenY
-//            ) {
-//                g2.drawImage(tile[tileNum].image, screenX, screenY,null);
+                }
 
 
 
-            }
-        }
+         }
+         public void destination(int x,int y){
+        mouseX=(x/speed)*speed;
+        mouseY=(y/speed)*speed;
+        bulletX=player.weapon.centerX;
+        bulletY= player.weapon.centerY;
+         }
+         public void moveBullet(){
+             angle = Math.atan2(mouseY - bulletY, mouseX - bulletX);
+             bulletX += ((int) (speed * Math.cos(angle)));
+             bulletY += (int) (speed * Math.sin(angle));
+             worldX = bulletX+gp.player.worldX - gp.player.screenX;
+             worldY=bulletY+gp.player.worldY - gp.player.screenY;
+             if ((bulletX/speed)*speed == mouseX || (bulletX/speed)*speed == mouseX -speed && (bulletY/speed)*speed == mouseY ||  (bulletY/speed)*speed == mouseY- speed){
+                 i=bulletRange;
+             }
+             if (collisionOn){
+                 i=bulletRange;
+             }
+         }
+
+
+}
+
 
 
 

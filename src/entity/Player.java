@@ -7,31 +7,23 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity {
-    public GamePanel gamePanel;
     KeyHandler keyH;
 
-    public final int screenX;
-    public final int screenY;
-    String prevDirection="left";
+    public  int screenX;
+    public  int screenY;
 
     public int health=100;
     public  int stamina =100;
 
     boolean hasGun=false;
 
-    MouseHandler mouseH;
 
     public double angle;
-
-
-
-
     Weapon weapon = new Weapon(this);
-    public Player(GamePanel gp,KeyHandler keyH,MouseHandler mouseH){
+    public Player(GamePanel gp,KeyHandler keyH){
+        super(gp);
 
-        this.gamePanel=gp;
         this.keyH=keyH;
-        this.mouseH=mouseH;
 
         screenX= gp.screenWidth/2;
         screenY=gp.screenHeight/2;
@@ -48,8 +40,8 @@ public class Player extends Entity {
 
     }
     public void setDefaultValues(){
-       worldX =gamePanel.tileSize*23;
-        worldY =gamePanel.tileSize*23;
+       worldX =gp.tileSize*23;
+        worldY =gp.tileSize*23;
         speed=4;
 
     }
@@ -71,34 +63,24 @@ public class Player extends Entity {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        upLeft1= setup("up_left_1");
-        upLeft2=setup("up_left_2") ;
-        upRight1=setup("up_right_1") ;
-        upRight2= setup("up_right_1");
-        right1= setup("right_1");
-        right2= setup("right_2");
-        right3= setup("right_3");
-        left1= setup("left1");
-        left2= setup("left_2");
-        left3=setup("left_3");
-        fly=setup("fly");
+        upLeft1= setup("/player/up_left_1");
+        upLeft2=setup("/player/up_left_2") ;
+        upRight1=setup("/player/up_right_1") ;
+        upRight2= setup("/player/up_right_1");
+        right1= setup("/player/right_1");
+        right2= setup("/player/right_2");
+        right3= setup("/player/right_3");
+        left1= setup("/player/left1");
+        left2= setup("/player/left_2");
+        left3=setup("/player/left_3");
+        fly=setup("/player/fly");
     }
-    public BufferedImage setup(String imageName){
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image=null;
-        try {
-            image=ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
-            image=uTool.scaledImage(image, gamePanel.tileSize,gamePanel.tileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
+
 
 
     public void update()  {
-        double dx= gamePanel.mouseH.X- weapon.centerX;
-        double dy=gamePanel.mouseH.Y- weapon.centerY;
+        double dx= gp.mouseH.X- weapon.centerX;
+        double dy=gp.mouseH.Y- weapon.centerY;
         angle=Math.atan2(dy,dx);
             if (keyH.upPressed == true) {
                 direction = "up";
@@ -116,8 +98,8 @@ public class Player extends Entity {
                 //helps to increase the x-axis if right key is pressed
             }
             collisionOn=false;
-            gamePanel.collisionChecker.checkTile(this);
-            int objIndex=gamePanel.collisionChecker.checkObject(this,true);
+            gp.collisionChecker.checkTile(this);
+            int objIndex=gp.collisionChecker.checkObject(this,true);
             if(keyH.pick){
                 pickup(objIndex);
             }
@@ -171,7 +153,7 @@ public class Player extends Entity {
         }
     }
     public void falling()  {
-        if (gamePanel.collisionChecker.checkFall(this)){
+        if (gp.collisionChecker.checkFall(this)){
             worldY += fallingSpeed;
             fallingSpeed++;
             if (fallingSpeed>16){
@@ -264,7 +246,7 @@ public class Player extends Entity {
             if (stamina<100)
             stamina++;
         }
-        weapon.drawWeapon(g2d);
+        weapon.drawWeapon(g2d,gp);
 
 
     }
@@ -272,15 +254,15 @@ public class Player extends Entity {
 
     public void pickup(int i){
         if (i!=999){
-            String objectName=gamePanel.obj[i].name;
+            String objectName=gp.obj[i].name;
             switch (objectName){
 
                 case "gun":
                     hasGun=true;
-                    weapon.gunRight =gamePanel.obj[i].rightImage;
-                    weapon.gunLeft=gamePanel.obj[i].leftImage;
-                    gamePanel.obj[i]=null;
-                    gamePanel.ui.showMessage("you have a gun");
+                    weapon.gunRight =gp.obj[i].rightImage;
+                    weapon.gunLeft=gp.obj[i].leftImage;
+                    gp.obj[i]=null;
+                    gp.ui.showMessage("you have a gun");
             }
         }
 
@@ -294,7 +276,7 @@ public class Player extends Entity {
     }
     public void shoot(){
 //        if (checkGun())
-//            gamePanel.soundSE(1);
+//            gp.soundSE(1);
     }
 
 
