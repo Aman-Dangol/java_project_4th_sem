@@ -3,20 +3,70 @@ package Enemy;
 import entity.Entity;
 import main.GamePanel;
 
+import java.awt.*;
 import java.util.Random;
 
+
 public class Enemy1 extends Entity {
+    GamePanel gp ;
     public Enemy1(GamePanel gp) {
         super(gp);
+        this.gp = gp;
         name ="bot";
         speed = 5;
         type=2;
         maxHealth =10;
-        direction="left";
+        direction="down";
         health = maxHealth;
+        solidArea = new Rectangle(0,0,gp.tileSize,gp.tileSize);
         getImage();
 
+
     }
+
+    @Override
+    public void update() {
+        setAction();
+        collisionOn=false;
+        gp.collisionChecker.checkTile(this);
+        gp.collisionChecker.checkObject(this,false);
+        boolean contactPlayer = gp.collisionChecker.checkPlayer(this);
+        if (this.type==2 && contactPlayer){
+            if (!gp.player.invincible){
+                gp.player.health-=10;
+                gp.player.invincible=true;
+            }
+        }
+        if (!collisionOn){
+
+            switch (direction){
+                case "up":
+                    worldY -= speed;
+                    break;
+                case "down":
+                    worldY += speed;
+                    break;
+                case "left" :
+                    worldX -= speed;
+                    break;
+                case "right":
+                    worldX+= speed;
+                    break;
+            }
+        }
+
+        spriteCounter++;
+        if (spriteCounter > 12) {//player image changes every 10 frames
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            } else if (spriteNum == 2) {
+                spriteNum = 1;
+
+            }
+            spriteCounter = 0;
+        }
+    }
+
     public void getImage(){
         right1= setup("/Enemy/bot");
         right2=setup("/Enemy/bot");

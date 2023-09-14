@@ -122,11 +122,11 @@ public class Entity {
             }
             if (type==2){
                 double onScale=(double) gp.tileSize/ maxHealth;
-                double hpBarvalue = onScale*health;
+                double hpBarValue = onScale*health;
                 g2.setColor(Color.black);
                 g2.drawRect(screenX-2,screenY-16,gp.tileSize+2,12);
                 g2.setColor(Color.red);
-                g2.fillRect(screenX, screenY - 15, (int) hpBarvalue, 10);
+                g2.fillRect(screenX, screenY - 15, (int) hpBarValue, 10);
 
             }
             g2.drawImage(image,screenX,screenY, null);
@@ -155,16 +155,16 @@ public class Entity {
         collisionOn=false;
         gp.collisionChecker.checkTile(this);
         gp.collisionChecker.checkObject(this,false);
-//        gp.collisionChecker.checkEntity(this,gp.enemy);
+        gp.collisionChecker.checkEntity(this,gp.enemy);
         boolean contactPlayer = gp.collisionChecker.checkPlayer(this);
 
-        if (this.type==2 && contactPlayer ==true){
-            if (gp.player.invincible==false){
+        if (this.type==2 && contactPlayer){
+            if (!gp.player.invincible){
                 gp.player.health-=10;
                 gp.player.invincible=true;
             }
         }
-        if (collisionOn==false){
+        if (!collisionOn){
 
             switch (direction){
                 case "up":
@@ -195,9 +195,8 @@ public class Entity {
 
     }
     public void contactEnemy(){
-        if (invincible==false){
+        if (!invincible){
             health -=3;
-            System.out.println(health);
             invincible=true;
         }
     }

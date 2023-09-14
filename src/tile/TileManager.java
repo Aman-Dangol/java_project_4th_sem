@@ -65,66 +65,14 @@ public class TileManager {
     }
     public void getTileImage(){
             setup(0,"transparentTile",false);
-
-//            tile[0]=new Tile();
-//            tile[0].image= ImageIO.read(getClass().getResourceAsStream("/tiles/transparentTile.png"));
-//            BufferedImage scaledImage= new BufferedImage(gp.tileSize,gp.tileSize,tile[0].image.getType());
-//            Graphics2D g2 = scaledImage.createGraphics();
-//            g2.drawImage(tile[0].image,0,0,gp.tileSize,gp.tileSize,null);
-//            tile[0].image=scaledImage;
-
-
-//            tile[1]=new Tile();
-//            tile[1].image= ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
-//            tile[1].collision=true;
             setup(1,"grass",true);
-
-
-//            tile[2]=new Tile();
-//            tile[2].image= ImageIO.read(getClass().getResourceAsStream("/tiles/ground.png"));
-//            tile[2].collision=true;
             setup(2,"ground",true);
-
-
-
-//            tile[3]=new Tile();
-//            tile[3].image= ImageIO.read(getClass().getResourceAsStream("/tiles/transparentTile.png"));
-//            tile[3].collision=true;
             setup(3,"transparentTile",true);
-
-
-//            tile[4]=new Tile();
-//            tile[4].image= ImageIO.read(getClass().getResourceAsStream("/tiles/corner_grass.png"));
-//            tile[4].collision=true;
             setup(4,"corner_grass",true);
-
-
-//            tile[5]=new Tile();
-//            tile[5].image= ImageIO.read(getClass().getResourceAsStream("/tiles/right_corner_piece.png"));
-//            tile[5].collision=true;
             setup(5,"right_corner_piece",true);
-
-
-//            tile[6]=new Tile();
-//            tile[6].image= ImageIO.read(getClass().getResourceAsStream("/tiles/left_straight.png"));
-//            tile[6].collision=true;
             setup(6,"left_straight",true);
-
-//
-//            tile[7]=new Tile();
-//            tile[7].image= ImageIO.read(getClass().getResourceAsStream("/tiles/right_straight.png"));
-//            tile[7].collision=true;
             setup(7,"right_straight",true);
-
-
-//            tile[8]=new Tile();
-//            tile[8].image= ImageIO.read(getClass().getResourceAsStream("/tiles/bottom_left.png"));
-//            tile[8].collision=true
             ;setup(8,"bottom_left",true);
-//
-//            tile[9]=new Tile();
-//            tile[9].image= ImageIO.read(getClass().getResourceAsStream("/tiles/bottom_right.png"));
-//            tile[9].collision=true;
             setup(9,"bottom_right",true);
 
 

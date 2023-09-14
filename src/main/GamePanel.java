@@ -9,7 +9,6 @@ import tile.TileManager;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import Object.SuperObject;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -20,13 +19,12 @@ public class GamePanel extends JPanel implements Runnable {
 
    public int screenWidth = column * tileSize;
 
-   Graphics2D g2d;
 
     public int screenHeight = rows * tileSize;
 
    public final int maxWorldCol =50;
     public final int maxWorldRow=70;
-    int FPS = 60;;
+    int FPS = 60;
     TileManager tileM;
     public int gameState;
     public  int bulletIndex=0;
@@ -34,10 +32,12 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState=2;
     public final int titleState=0;
 
+    boolean gameOver=false;
+
     public  final int dialogueState=3;
     Background background;
 
-    KeyHandler keyH=keyH=new KeyHandler(this);
+    KeyHandler keyH=new KeyHandler(this);
     public Player player = new Player(this,keyH);
 
     public Bullet[] bullet = new Bullet[20];
@@ -55,10 +55,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public SuperObject[] obj = new SuperObject[10] ;
 
-    public Entity[] enemy = new Entity[20];
+    public Entity[] enemy = new Entity[5];
     Thread thread;
 
-    ArrayList<Entity> entityList = new ArrayList<>();
 
 
 
@@ -85,7 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame(){
         aSetter.setObject();
         aSetter.setEnemy(enemy.length);
-
+        playMusic(0);
         gameState=titleState;
     }
     void makeBullet(){
@@ -100,7 +99,7 @@ public class GamePanel extends JPanel implements Runnable {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         long drawStart=0;
-        if (keyH.checkDrawTime==true){
+        if (keyH.checkDrawTime){
             drawStart = System.currentTimeMillis();
         }
 
@@ -134,14 +133,11 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
         }
-        if (keyH.checkDrawTime==true){
+        if (keyH.checkDrawTime){
             long drawEnd= System.currentTimeMillis();
             long passed=drawEnd-drawStart;
             g2d.drawString("draw time: "+passed,10,400);
-//            System.out.println(passed);
         }
-
-//        g2d.dispose();
     }
     @Override
     public void run() {
@@ -174,9 +170,6 @@ public class GamePanel extends JPanel implements Runnable {
                 enemy[i].update();
             }
         }
-        if (gameState==pauseState){
-
-        }
 
     }
     public void startingThread(){
@@ -197,8 +190,6 @@ public class GamePanel extends JPanel implements Runnable {
         se.setFile(i);
         se.play();
     }
-
-
 }
 
 

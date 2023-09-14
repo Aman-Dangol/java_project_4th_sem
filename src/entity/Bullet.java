@@ -1,7 +1,6 @@
 package entity;
 
 import main.GamePanel;
-import main.MouseHandler;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -47,9 +46,7 @@ public class Bullet extends Entity {
                 moveBullet();
                 if (i != bulletRange) {
                     gp.collisionChecker.checkBulletCollision(this);
-                    if (collisionOn) {
-
-                    } else {
+                    if (!collisionOn) {
                         g2.drawImage(image, bulletX - 24, bulletY - 24, gp.tileSize, gp.tileSize, null);
                         gp.collisionChecker.shotCollision(this, gp.enemy);
                     }
@@ -59,13 +56,7 @@ public class Bullet extends Entity {
                     i = 0;
                     collisionOn = false;
                 }
-
-
             }
-        }
-
-        if (type == 2) {
-
         }
     }
          public void destination(int x,int y){
@@ -88,14 +79,6 @@ public class Bullet extends Entity {
              if (collisionOn){
                  i=bulletRange;
              }
-         }
-
-         public void enemyShoot(int x, int y){
-             angle = Math.atan2(x - bulletY, y - bulletX);
-             bulletX += ((int) (speed * Math.cos(angle)));
-             bulletY += (int) (speed * Math.sin(angle));
-
-
          }
 
 

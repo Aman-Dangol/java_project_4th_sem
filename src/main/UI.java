@@ -104,6 +104,7 @@ public class UI   {
 
 
         if (gp.gameState==gp.titleState){
+//            gp.playMusic(0);
 
 
 
@@ -114,7 +115,6 @@ public class UI   {
             g2.drawString(" : " + healthCalculate(gp.player.health), 70, 50);
             g2.drawImage(stamina, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
             g2.drawString(" : " + gp.player.Stamina, 70, 90);
-//            g2.drawImage(bullets, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
             g2.drawString(" bullets : " + (gp.bullet.length-gp.bulletIndex), 70, 120);
 
             playTime+=(double)1/60;
@@ -154,17 +154,6 @@ public class UI   {
 
     }
 
-    public void drawDialogueScreen() {
-
-
-        //window
-        int x=gp.tileSize*2;
-        int y=gp.tileSize/2;
-        int width=gp.screenWidth-(gp.tileSize*4);
-        int height=gp.tileSize*5;
-        drawSubWindow(x,y,width,height);
-
-    }
     public int healthCalculate(int health){
         if (health<0){
             health=0;
@@ -197,7 +186,7 @@ public class UI   {
 
         g2.drawString(play,x,y);
 
-        quit= "Load";
+        quit= "quit";
         x= (int) (gp.tileSize*9.5);
         y+=gp.tileSize;
         g2.setColor(Color.black);
@@ -206,10 +195,6 @@ public class UI   {
         g2.drawString(quit,x,y);if (commandNum == 1){
             g2.drawString(">",x-gp.tileSize,y);
         }
-    }
-
-   void getBulletNum(){
-
     }
 
 }

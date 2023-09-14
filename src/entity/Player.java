@@ -3,6 +3,7 @@ import main.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Player extends Entity {
     KeyHandler keyH;
@@ -50,23 +51,6 @@ public class Player extends Entity {
 
     }
     void getPlayerImage(){
-//        try {
-//            upLeft1= ImageIO.read(getClass().getResourceAsStream("/player/up_left_1.png"));
-//            upLeft2= ImageIO.read(getClass().getResourceAsStream("/player/up_left_2.png"));
-//            upRight1= ImageIO.read(getClass().getResourceAsStream("/player/up_right_1.png"));
-//            upRight2= ImageIO.read(getClass().getResourceAsStream("/player/up_right_1.png"));
-//            right1= ImageIO.read(getClass().getResourceAsStream("/player/right_1.png"));
-//            right2= ImageIO.read(getClass().getResourceAsStream("/player/right_3.png"));
-//            right3= ImageIO.read(getClass().getResourceAsStream("/player/right_2.png"));
-//            left1= ImageIO.read(getClass().getResourceAsStream("/player/left1.png"));
-//            left2= ImageIO.read(getClass().getResourceAsStream("/player/left_3.png"));
-//            left3= ImageIO.read(getClass().getResourceAsStream("/player/left_2.png"));
-//            fly=ImageIO.read(getClass().getResourceAsStream("/player/fly.png"));
-//
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         upLeft1= setup("/player/up_left_1");
         upLeft2=setup("/player/up_left_2") ;
         upRight1=setup("/player/up_right_1") ;
@@ -86,24 +70,24 @@ public class Player extends Entity {
         double dx= gp.mouseH.X- weapon.centerX;
         double dy=gp.mouseH.Y- weapon.centerY;
         angle=Math.atan2(dy,dx);
-            if (keyH.upPressed == true) {
+            if (keyH.upPressed) {
                 direction = "up";
 
             }
-            if (keyH.downPressed == true) {
+            if (keyH.downPressed) {
                 direction = "down";
             }
-            if (keyH.leftPressed == true) {
+            if (keyH.leftPressed) {
                 direction = "left";
             }
-            if (keyH.rightPressed == true) {
+            if (keyH.rightPressed) {
                 direction = "right";
                 //direction is for changing img according to the arrow
                 //helps to increase the x-axis if right key is pressed
             }
             collisionOn=false;
             gp.collisionChecker.checkTile(this);
-            int objIndex=gp.collisionChecker.checkObject(this,true);
+        int objIndex=gp.collisionChecker.checkObject(this,true);
             if(keyH.pick){
                 pickup(objIndex);
             }
@@ -111,7 +95,7 @@ public class Player extends Entity {
             int enemyIndex = gp.collisionChecker.checkEntity(this,gp.enemy);
 
             contactEnemy(enemyIndex);
-        if (collisionOn == false) {
+        if (!collisionOn) {
                 if (keyH.upPressed) {
                     jump();
                 }
@@ -148,7 +132,7 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
-        if (invincible==true){
+        if (invincible){
             invincibleCounter++;
             if (invincibleCounter >60){
                 invincible=false;
@@ -226,7 +210,7 @@ public class Player extends Entity {
                 }
                 break;
             case "right":
-                if (keyH.upPressed ==false){
+                if (!keyH.upPressed){
                     if(spriteNum==1){
                         image = right1;
                     }
@@ -260,7 +244,7 @@ public class Player extends Entity {
 
 
 
-        if (keyH.upPressed ==true){
+        if (keyH.upPressed){
 
                 if (Stamina >0){
                     Stamina -=2;
@@ -304,13 +288,14 @@ public class Player extends Entity {
 
     }
     public void shoot(){
-//        if (checkGun())
+        if (checkGun()) {
 //            gp.soundSE(1);
+        }
     }
     public void contactEnemy(int enemyIndex){
         if (enemyIndex!=999){
             if (invincible==false){
-                health-=10;
+//                health-=10;
                 invincible=true;
             }
         }
