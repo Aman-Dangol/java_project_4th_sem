@@ -16,7 +16,6 @@ public class Bullet extends Entity {
     public Boolean onAir=false;
     int i=0;
     int mouseX,mouseY;
-    int pX ,pY;
     public int bulletX;
     public int bulletY;
     double angle;
@@ -28,11 +27,10 @@ public class Bullet extends Entity {
 
         this.gp=gp;
         this.player=player;
+        solidArea.x/=2;
 
-//        solidArea = new Rectangle(20,20,4,5);
         solidAreaDefaultX=solidArea.x;
         solidAreaDefaultY=solidArea.y;
-
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/Objects/bullet.png"));
         } catch (IOException e) {
@@ -41,26 +39,34 @@ public class Bullet extends Entity {
 
 
     }
+
+
     public void draw(Graphics2D g2){
-        if (onAir) {
-            moveBullet();
-            if (i!=bulletRange){
-                gp.collisionChecker.checkBulletCollision(this);
-                if (collisionOn){
+        if (type==0){
+            if (onAir) {
+                moveBullet();
+                if (i != bulletRange) {
+                    gp.collisionChecker.checkBulletCollision(this);
+                    if (collisionOn) {
 
+                    } else {
+                        g2.drawImage(image, bulletX - 24, bulletY - 24, gp.tileSize, gp.tileSize, null);
+                        gp.collisionChecker.shotCollision(this, gp.enemy);
+                    }
+                    i++;
+                } else {
+                    onAir = false;
+                    i = 0;
+                    collisionOn = false;
                 }
-                else
-                    g2.drawImage(image,bulletX-24,bulletY-24,gp.tileSize,gp.tileSize,null);
-                i++;
-            }
-            else {
-                onAir=false;
-                i=0;
-                collisionOn=false;
-            }
 
 
-    }
+            }
+        }
+
+        if (type == 2) {
+
+        }
     }
          public void destination(int x,int y){
         mouseX=(x/speed)*speed;
@@ -75,13 +81,21 @@ public class Bullet extends Entity {
              bulletX += ((int) (speed * Math.cos(angle)));
              bulletY += (int) (speed * Math.sin(angle));
              worldX = bulletX+gp.player.worldX - gp.player.screenX;
-             worldY=bulletY+gp.player.worldY - gp.player.screenY;
+             worldY = bulletY+gp.player.worldY - gp.player.screenY;
              if ((bulletX/speed)*speed == mouseX || (bulletX/speed)*speed == mouseX -speed && (bulletY/speed)*speed == mouseY ||  (bulletY/speed)*speed == mouseY- speed){
                  i=bulletRange;
              }
              if (collisionOn){
                  i=bulletRange;
              }
+         }
+
+         public void enemyShoot(int x, int y){
+             angle = Math.atan2(x - bulletY, y - bulletX);
+             bulletX += ((int) (speed * Math.cos(angle)));
+             bulletY += (int) (speed * Math.sin(angle));
+
+
          }
 
 

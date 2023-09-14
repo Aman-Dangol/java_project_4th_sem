@@ -19,12 +19,14 @@ public class Entity {
     public int spriteNum=1;
     String prevDirection="left";
     public int actionLockCounter;
+    public boolean invincible =false;
+    public int invincibleCounter;
 
 
     public String name="";
 
-    public  int maxLife;
-    public  int life;
+    public  int maxHealth;
+    public  int health;
 
     public BufferedImage fly;
     public BufferedImage upLeft1;
@@ -41,6 +43,7 @@ public class Entity {
     public Rectangle solidArea= new Rectangle(0,0,48,48);
     public int solidAreaDefaultX,solidAreaDefaultY;
     public boolean collisionOn=false;
+    public int type;//0 player // 2 enemy
     GamePanel gp;
     public Entity(GamePanel gp){
         this.gp =gp;
@@ -117,7 +120,27 @@ public class Entity {
                         }
                     break;
             }
+            if (type==2){
+                double onScale=(double) gp.tileSize/ maxHealth;
+                double hpBarvalue = onScale*health;
+                g2.setColor(Color.black);
+                g2.drawRect(screenX-2,screenY-16,gp.tileSize+2,12);
+                g2.setColor(Color.red);
+                g2.fillRect(screenX, screenY - 15, (int) hpBarvalue, 10);
+
+            }
             g2.drawImage(image,screenX,screenY, null);
+
+        }
+
+        if (invincible){
+            invincibleCounter++;
+
+            if (invincibleCounter>30){
+                invincible=false;
+                invincibleCounter=0;
+            }
+
         }
 
     }
@@ -126,12 +149,21 @@ public class Entity {
 
     }
     public void update(){
+
+
         setAction();
         collisionOn=false;
         gp.collisionChecker.checkTile(this);
         gp.collisionChecker.checkObject(this,false);
-        gp.collisionChecker.checkEntity(this,gp.enemy);
-        gp.collisionChecker.checkPlayer(this);
+//        gp.collisionChecker.checkEntity(this,gp.enemy);
+        boolean contactPlayer = gp.collisionChecker.checkPlayer(this);
+
+        if (this.type==2 && contactPlayer ==true){
+            if (gp.player.invincible==false){
+                gp.player.health-=10;
+                gp.player.invincible=true;
+            }
+        }
         if (collisionOn==false){
 
             switch (direction){
@@ -161,6 +193,13 @@ public class Entity {
             spriteCounter = 0;
         }
 
+    }
+    public void contactEnemy(){
+        if (invincible==false){
+            health -=3;
+            System.out.println(health);
+            invincible=true;
+        }
     }
 
 

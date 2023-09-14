@@ -13,15 +13,16 @@ public class AssetSetter {
         gp.obj[0].worldY=43* gp.tileSize;
 
     }
-    public void setEnemy(){
-        gp.enemy[0] = new Enemy1(gp);
-        gp.enemy[0].worldX = gp.tileSize*27;
-        gp.enemy[0].worldY = gp.tileSize*42;
+    public void setEnemy(int enemyNum){
+        for (int i = 0; i < enemyNum; i++) {
+            gp.enemy[i] = new Enemy1(gp);
+            gp.enemy[i].worldX = gp.tileSize*27;
+            gp.enemy[i].worldY = gp.tileSize*42;
+
+        }
 
 
-        gp.enemy[1] = new Enemy1(gp);
-        gp.enemy[1].worldX = gp.tileSize*29;
-        gp.enemy[1].worldY = gp.tileSize*42;
+
 
     }
 }

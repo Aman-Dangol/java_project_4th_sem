@@ -48,7 +48,6 @@ public class KeyHandler implements KeyListener {
         }
 
         if (gp.gameState==gp.playState){
-//            System.out.println("here");
             if(e.getKeyCode()==KeyEvent.VK_W) {
                 upPressed = true;
             }
@@ -68,7 +67,6 @@ public class KeyHandler implements KeyListener {
                     gp.gameState= gp.pauseState;
             }
             if(e.getKeyCode()==KeyEvent.VK_R) {
-                System.out.println("Reload");
                 gp.bulletIndex=0;
             }
 

@@ -1,10 +1,8 @@
 package entity;
 import main.*;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Player extends Entity {
     KeyHandler keyH;
@@ -13,15 +11,21 @@ public class Player extends Entity {
     public  int screenY;
 
     public int health=100;
-    public  int stamina =100;
+    public  int Stamina =200;
+
+    public int maxStamina =200;
+
 
     public boolean hasGun=false;
+
+
 
 
     public double angle;
     Weapon weapon = new Weapon(this);
     public Player(GamePanel gp,KeyHandler keyH){
         super(gp);
+        type =0;
 
         this.keyH=keyH;
 
@@ -107,10 +111,6 @@ public class Player extends Entity {
             int enemyIndex = gp.collisionChecker.checkEntity(this,gp.enemy);
 
             contactEnemy(enemyIndex);
-
-
-
-
         if (collisionOn == false) {
                 if (keyH.upPressed) {
                     jump();
@@ -148,11 +148,18 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
+        if (invincible==true){
+            invincibleCounter++;
+            if (invincibleCounter >60){
+                invincible=false;
+                invincibleCounter =0;
+            }
+        }
     }
 
 
     void jump()  {
-        if (stamina>0){
+        if (Stamina >0){
             fallingSpeed=jump;
             worldY +=fallingSpeed;
         }
@@ -235,21 +242,38 @@ public class Player extends Entity {
                 }
                 break;
         }
+
+        if (health == 0 ){
+            gp.gameState = gp.titleState;
+        }
+
+        //set transparency
+        if (invincible){
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.3F));
+
+        }
         g2d.drawImage(image,screenX,screenY, null);
+
+
+        //reset transparency
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1F));
+
+
+
         if (keyH.upPressed ==true){
 
-                if (stamina>0){
-                    stamina-=2;
+                if (Stamina >0){
+                    Stamina -=2;
                     g2d.drawImage(fly,screenX,screenY+48, null);
 
                 }
                 else
-                    stamina=0;
+                    Stamina =0;
         }
         else
         {
-            if (stamina<100)
-            stamina++;
+            if (Stamina <maxStamina)
+            Stamina++;
         }
         weapon.drawWeapon(g2d,gp);
 
@@ -285,7 +309,10 @@ public class Player extends Entity {
     }
     public void contactEnemy(int enemyIndex){
         if (enemyIndex!=999){
-            health-=10;
+            if (invincible==false){
+                health-=10;
+                invincible=true;
+            }
         }
     }
 

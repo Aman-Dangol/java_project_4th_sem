@@ -6,10 +6,11 @@ import entity.Entity;
 import entity.Player;
 import tile.Background;
 import tile.TileManager;
-import Object.SuperObject;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import Object.SuperObject;
 
 public class GamePanel extends JPanel implements Runnable {
     public int tileSize = 48;//for creating a tiles
@@ -52,10 +53,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     AssetSetter aSetter= new AssetSetter(this);
 
-    public SuperObject[] obj = new SuperObject[10];
+    public SuperObject[] obj = new SuperObject[10] ;
 
     public Entity[] enemy = new Entity[20];
     Thread thread;
+
+    ArrayList<Entity> entityList = new ArrayList<>();
 
 
 
@@ -81,7 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame(){
         aSetter.setObject();
-        aSetter.setEnemy();
+        aSetter.setEnemy(enemy.length);
 
         gameState=titleState;
     }
@@ -110,19 +113,17 @@ public class GamePanel extends JPanel implements Runnable {
         }else
         {
             tileM.draw(g2d);
-            for (int i=0;i< obj.length;i++){
-                if (obj[i]!=null){
-                    obj[i].draw(g2d,this);
+            player.draw(g2d);
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i]!=null) {
+                    obj[i].draw(g2d, this);
                 }
-
             }
-            for (int i=0;i< enemy.length;i++){
-                if (enemy[i]!=null){
+            for (int i = 0; i < enemy.length; i++) {
+                if (enemy[i]!=null) {
                     enemy[i].draw(g2d);
                 }
             }
-
-            player.draw(g2d);
             ui.draw(g2d);
             if (player.checkGun()) {
                 int i =0;

@@ -1,10 +1,7 @@
 package main;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -116,7 +113,7 @@ public class UI   {
             g2.drawImage(health, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
             g2.drawString(" : " + healthCalculate(gp.player.health), 70, 50);
             g2.drawImage(stamina, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
-            g2.drawString(" : " + gp.player.stamina, 70, 90);
+            g2.drawString(" : " + gp.player.Stamina, 70, 90);
 //            g2.drawImage(bullets, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
             g2.drawString(" bullets : " + (gp.bullet.length-gp.bulletIndex), 70, 120);
 

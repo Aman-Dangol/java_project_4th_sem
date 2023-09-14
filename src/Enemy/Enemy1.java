@@ -10,9 +10,10 @@ public class Enemy1 extends Entity {
         super(gp);
         name ="bot";
         speed = 5;
-        maxLife=4;
+        type=2;
+        maxHealth =10;
         direction="left";
-        life=maxLife;
+        health = maxHealth;
         getImage();
 
     }
@@ -55,4 +56,8 @@ public class Enemy1 extends Entity {
 
         }
     }
+
+
+
+
 }
