@@ -12,7 +12,9 @@ import java.io.IOException;
 import Object.SuperObject;
 
 public class GamePanel extends JPanel implements Runnable {
-    public int tileSize = 48;//for creating a tiles
+    public int originalTileSize=16;
+    final int scale =3;
+    public int tileSize = originalTileSize * scale;//for creating a tiles
     int column = 20;
 
     int rows = 12;
@@ -24,17 +26,19 @@ public class GamePanel extends JPanel implements Runnable {
 
    public final int maxWorldCol =50;
     public final int maxWorldRow=70;
+
+
     int FPS = 60;
     TileManager tileM;
     public int gameState;
     public  int bulletIndex=0;
     public final int playState=1;
     public final int pauseState=2;
+    public final  int gameOverState =3;
     public final int titleState=0;
 
     boolean gameOver=false;
 
-    public  final int dialogueState=3;
     Background background;
 
     KeyHandler keyH=new KeyHandler(this);
@@ -55,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public SuperObject[] obj = new SuperObject[10] ;
 
-    public Entity[] enemy = new Entity[5];
+    public Entity[] enemy = new Entity[10];
     Thread thread;
 
 
@@ -78,6 +82,9 @@ public class GamePanel extends JPanel implements Runnable {
         addMouseListener(mouseH);
         addMouseMotionListener(mouseH);
         setFocusable(true);
+
+
+
         tileM=new TileManager(this,keyH);
     }
 
@@ -86,6 +93,11 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setEnemy(enemy.length);
         playMusic(0);
         gameState=titleState;
+
+//        tempScreen = new BufferedImage(screenWidth,screenHeight,BufferedImage.TYPE_INT_ARGB);
+//        g2 =(Graphics2D) tempScreen.getGraphics();
+
+//        setFullScreen();
     }
     void makeBullet(){
         int i =0;
@@ -94,6 +106,8 @@ public class GamePanel extends JPanel implements Runnable {
             i++;
         }
     }
+
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -147,6 +161,8 @@ public class GamePanel extends JPanel implements Runnable {
             //update character position and drawing with updated information
             update();
             repaint();
+//            drawToTempScreen();//draw everything to
+//            drawToScreen();
             try {
                 double remainingTime = nextDrawTime - System.currentTimeMillis();
                 if (remainingTime < 0) {
@@ -189,6 +205,11 @@ public class GamePanel extends JPanel implements Runnable {
     public void soundSE(int i){
         se.setFile(i);
         se.play();
+    }
+    public void reset(){
+        player.reset();
+        aSetter.setEnemy(enemy.length);
+        aSetter.setObject();
     }
 }
 

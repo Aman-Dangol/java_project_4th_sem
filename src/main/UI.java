@@ -104,37 +104,76 @@ public class UI   {
 
 
         if (gp.gameState==gp.titleState){
-//            gp.playMusic(0);
-
-
-
             drawTitleScreen();
         }
-        if (gp.gameState==gp.playState){
-            g2.drawImage(health, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-            g2.drawString(" : " + healthCalculate(gp.player.health), 70, 50);
-            g2.drawImage(stamina, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
-            g2.drawString(" : " + gp.player.Stamina, 70, 90);
-            g2.drawString(" bullets : " + (gp.bullet.length-gp.bulletIndex), 70, 120);
+        else if (gp.gameState==gp.playState){
+            playGame();
+        }
+        else if (gp.gameState==gp.pauseState){
+            drawPauseScreen();
+        }
+       else if (gp.gameState==gp.gameOverState){
+            drawGameOverScreen();
+        }
+    }
 
-            playTime+=(double)1/60;
-            g2.drawString("time : "+decimalFormat.format(playTime),gp.tileSize*15,65);
-            // do play state stuff
+    public void playGame(){
 
-            if (messageOn) {
-                g2.setFont(g2.getFont().deriveFont(18F));
-                g2.drawString(message, gp.tileSize * 8, gp.tileSize * 3);
-                messageCounter++;
-                if (messageCounter > 120) {
-                    messageCounter = 0;
-                    messageOn = false;
-                }
+        g2.drawImage(health, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+        g2.drawString(" : " + healthCalculate(gp.player.health), 70, 50);
+        g2.drawImage(stamina, gp.tileSize / 2, gp.tileSize / 2 + 50, gp.tileSize, gp.tileSize, null);
+        g2.drawString(" : " + gp.player.Stamina, 70, 90);
+        g2.drawString(" bullets : " + (gp.bullet.length-gp.bulletIndex), 70, 120);
+
+        playTime+=(double)1/60;
+        g2.drawString("time : "+decimalFormat.format(playTime),gp.tileSize*15,65);
+        // do play state stuff
+
+        if (messageOn) {
+            g2.setFont(g2.getFont().deriveFont(18F));
+            g2.drawString(message, gp.tileSize * 8, gp.tileSize * 3);
+            messageCounter++;
+            if (messageCounter > 120) {
+                messageCounter = 0;
+                messageOn = false;
             }
         }
-        if (gp.gameState==gp.pauseState){
-            drawPauseScreen();
+    }
+    public void drawGameOverScreen(){
+        g2.setColor(Color.black);
+        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        int x;
+        int y;
+        String text ="Game Over";
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,110F));
 
+
+        g2.setColor(Color.white);
+        x= getXForCenterText(text);
+        y=gp.tileSize*4;
+        g2.drawString(text,x,y);
+
+        //play again
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
+        g2.setColor(Color.white);
+        text="Play again";
+        x= getXForCenterText(text);
+        y+=gp.tileSize*4;
+        g2.drawString(text,x,y);
+        if (commandNum == 0){
+            g2.drawString(">",x-40,y);
         }
+
+        //main menu
+        g2.setColor(Color.white);
+        text="Main menu";
+        x= getXForCenterText(text);
+        y+=60;
+        g2.drawString(text,x,y);
+        if (commandNum == 1){
+            g2.drawString(">",x-40,y);
+        }
+
     }
 
     public void drawPauseScreen(){

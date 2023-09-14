@@ -7,6 +7,7 @@ public class KeyHandler implements KeyListener {
 
 
     public GamePanel gp;
+    int code;
     public boolean upPressed, downPressed, leftPressed, rightPressed,pick,checkDrawTime=false;
 
     public KeyHandler(GamePanel gp){
@@ -19,7 +20,7 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 
-        int code = e.getKeyCode();
+         code = e.getKeyCode();
         if (gp.gameState== gp.titleState){
             if (code==KeyEvent.VK_W){
                 gp.ui.commandNum--;
@@ -37,6 +38,7 @@ public class KeyHandler implements KeyListener {
             }
             if (code==KeyEvent.VK_ENTER){
                 if (gp.ui.commandNum==0){
+                    gp.reset();
                     gp.gameState=gp.playState;
 //                    gp.playMusic(0);
                 }
@@ -70,8 +72,14 @@ public class KeyHandler implements KeyListener {
                 gp.bulletIndex=0;
             }
 
-        }
+        }else if (gp.gameState == gp.pauseState){
 
+            if(e.getKeyCode()==KeyEvent.VK_P){
+                gp.gameState= gp.playState;
+            }
+        }else if (gp.gameState == gp.gameOverState){
+            gameOver();
+        }
         if (e.getKeyCode()==KeyEvent.VK_T){
             if (checkDrawTime==false){
                 checkDrawTime=true;
@@ -79,26 +87,36 @@ public class KeyHandler implements KeyListener {
             else if (checkDrawTime==true){
                 checkDrawTime=false;
             }
-
-
         }
 
         //pause state
-        else if (gp.gameState == gp.pauseState){
 
-            if(e.getKeyCode()==KeyEvent.VK_P){
-                gp.gameState= gp.playState;
+    }
+
+    public void gameOver() {
+        if (code == KeyEvent.VK_W) {
+            gp.ui.commandNum--;
+            if (gp.ui.commandNum < 0) {
+                gp.ui.commandNum = 1;
+            }
+        }
+            if (code == KeyEvent.VK_S) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 1) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+            if (code == KeyEvent.VK_ENTER){
+                if (gp.ui.commandNum == 0){
+                    gp.gameState = gp.playState;
+                    gp.reset();
+                }
+               else if (gp.ui.commandNum == 1){
+                   gp.gameState = gp.titleState;
+                }
             }
 
-        }
-        //dialogue state
-        else  if (gp.gameState == gp.dialogueState){
 
-            if (e.getKeyCode()==KeyEvent.VK_ENTER){
-                gp.gameState = gp.playState;
-            }
-
-        }
     }
 
     @Override

@@ -11,7 +11,6 @@ public class Player extends Entity {
     public  int screenX;
     public  int screenY;
 
-    public int health=100;
     public  int Stamina =200;
 
     public int maxStamina =200;
@@ -29,6 +28,8 @@ public class Player extends Entity {
         type =0;
 
         this.keyH=keyH;
+        maxHealth =100;
+        health=maxHealth;
 
         screenX= gp.screenWidth/2;
         screenY=gp.screenHeight/2;
@@ -228,7 +229,8 @@ public class Player extends Entity {
         }
 
         if (health == 0 ){
-            gp.gameState = gp.titleState;
+            System.out.println("hame over");
+            gp.gameState = gp.gameOverState;
         }
 
         //set transparency
@@ -295,10 +297,21 @@ public class Player extends Entity {
     public void contactEnemy(int enemyIndex){
         if (enemyIndex!=999){
             if (invincible==false){
-//                health-=10;
+                health-=10;
                 invincible=true;
             }
         }
+    }
+
+
+    public void reset(){
+        worldX =gp.tileSize*23;
+        worldY =gp.tileSize*23;
+        speed=4;
+        weapon.gunLeft=null;
+        weapon.gunRight=null;
+        health = maxHealth;
+        invincible=false;
     }
 
 
