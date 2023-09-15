@@ -8,6 +8,7 @@ import java.io.IOException;
 public class Player extends Entity {
     KeyHandler keyH;
 
+
     public  int screenX;
     public  int screenY;
 
@@ -155,7 +156,8 @@ public class Player extends Entity {
         }
     }
     public void falling()  {
-        if (gp.collisionChecker.checkFall(this)){
+
+        if (gp.collisionChecker.checkFall(this) && fall){
             worldY += fallingSpeed;
             fallingSpeed++;
             if (fallingSpeed>16){

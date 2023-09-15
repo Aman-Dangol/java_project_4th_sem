@@ -30,7 +30,7 @@ public class Enemy1 extends Entity {
         collisionOn=false;
         gp.collisionChecker.checkTile(this);
         gp.collisionChecker.checkObject(this,false);
-        boolean contactPlayer = gp.collisionChecker.checkPlayer(this);
+         gp.collisionChecker.checkPlayer(this);
         if (!collisionOn){
 
             switch (direction){

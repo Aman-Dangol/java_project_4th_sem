@@ -14,6 +14,8 @@ public class Entity {
     public int speed=5;
     public int fallingSpeed = 1;
     public int jump=-4;
+    public boolean fall=true;
+
     public String direction;
     public int spriteCounter=0;
     public int spriteNum=1;
@@ -81,17 +83,6 @@ public class Entity {
                         if (spriteNum == 3) {
                             image = left1;
                         }
-//                    } else if (prevDirection=="right") {
-//                        if (spriteNum == 1) {
-//                            image = right1;
-//                        }
-//                        if (spriteNum == 2) {
-//                            image = right1;
-//                        }
-//                        if (spriteNum == 3) {
-//                            image = right1;
-//                        }
-//                    }
                     break;
                 case "down":
                     image = right1;

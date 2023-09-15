@@ -109,7 +109,8 @@ public class CollisionChecker {
         int tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
         if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
             return false;
-        } else {
+        } else
+        {
             return true;
         }
 
@@ -185,23 +186,45 @@ public class CollisionChecker {
                 switch (entity.direction) {
                     case "up":
                         entity.solidArea.y -= entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            if (target[i]!=entity){
+                                entity.collisionOn = true;
+                                index = i;
+                            }
+                        }
                         break;
                     case "down":
-                        entity.solidArea.y += entity.speed;
+                        entity.solidArea.y += 48;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            if (target[i]!=entity){
+                                entity.fall = false;
+
+                            }
+                        }
+                        else {
+                            entity.fall = true;
+                        }
                         break;
                     case "left":
                         entity.solidArea.x -= entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            if (target[i]!=entity){
+                                entity.collisionOn = true;
+                                index = i;
+                            }
+                        }
                         break;
                     case "right":
                         entity.solidArea.x += entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            if (target[i]!=entity){
+                                entity.collisionOn = true;
+                                index = i;
+                            }
+                        }
                         break;
                 }
-                if (entity.solidArea.intersects(target[i].solidArea)) {
-                    if (target[i]!=entity){
-                        entity.collisionOn = true;
-                        index = i;
-                    }
-                }
+
                 entity.solidArea.x = entity.solidAreaDefaultX;
                 entity.solidArea.y = entity.solidAreaDefaultY;
                 target[i].solidArea.x = target[i].solidAreaDefaultX;
@@ -211,6 +234,7 @@ public class CollisionChecker {
         return index;
 
     }
+
 
 
     public boolean checkPlayer(Entity entity) {
@@ -276,7 +300,6 @@ public class CollisionChecker {
                 targets[i].solidArea.x=targets[i].worldX+targets[i].solidArea.x;
                 targets[i].solidArea.y=targets[i].worldY+targets[i].solidArea.y;
                 if ( targets[i]!= null && entity.solidArea.intersects(targets[i].solidArea)){
-//                    System.out.println("intersecting");
                         targets[i].contactEnemy();
                         if (targets[i].health<=0){
                             targets[i]=null;
@@ -286,8 +309,6 @@ public class CollisionChecker {
             }
 
         }
-//
-//        }
 
     }
 }
