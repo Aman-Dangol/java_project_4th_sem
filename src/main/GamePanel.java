@@ -37,7 +37,6 @@ public class GamePanel extends JPanel implements Runnable {
     public final  int gameOverState =3;
     public final int titleState=0;
 
-    boolean gameOver=false;
 
     Background background;
 
@@ -93,11 +92,6 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setEnemy(enemy.length);
         playMusic(0);
         gameState=titleState;
-
-//        tempScreen = new BufferedImage(screenWidth,screenHeight,BufferedImage.TYPE_INT_ARGB);
-//        g2 =(Graphics2D) tempScreen.getGraphics();
-
-//        setFullScreen();
     }
     void makeBullet(){
         int i =0;
@@ -113,15 +107,13 @@ public class GamePanel extends JPanel implements Runnable {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         long drawStart=0;
-        if (keyH.checkDrawTime){
-            drawStart = System.currentTimeMillis();
-        }
 
         Graphics2D g2d = (Graphics2D) g;
         background.draw(g2d);
+        ui.draw(g2d);
+
 
         if (gameState==titleState){
-            ui.draw(g2d);
 
         }else
         {
@@ -147,46 +139,39 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
         }
-        if (keyH.checkDrawTime){
-            long drawEnd= System.currentTimeMillis();
-            long passed=drawEnd-drawStart;
-            g2d.drawString("draw time: "+passed,10,400);
-        }
     }
     @Override
     public void run() {
-        double drawInterval = 1000 / FPS;//draw screen avery 0.01666 times==draw screen 60 times per second
-        double nextDrawTime = System.currentTimeMillis() + drawInterval;//upper limit
-        while (thread!=null) {//as long as gameThread obj exists it repeats the process,core component go game
-            //update character position and drawing with updated information
-            update();
-            repaint();
-//            drawToTempScreen();//draw everything to
-//            drawToScreen();
-            try {
-                double remainingTime = nextDrawTime - System.currentTimeMillis();
-                if (remainingTime < 0) {
-                    remainingTime = 0;
+            double drawInterval = 1000 / FPS;//draw screen avery 0.01666 times==draw screen 60 times per second
+            double nextDrawTime = System.currentTimeMillis() + drawInterval;//upper limit
+            while (thread != null) {//as long as gameThread obj exists it repeats the process,core component go game
+                //update character position and drawing with updated information
+                update();
+                repaint();
+                try {
+                    double remainingTime = nextDrawTime - System.currentTimeMillis();
+                    if (remainingTime < 0) {
+                        remainingTime = 0;
+                    }
+                    nextDrawTime += drawInterval;
+                    Thread.sleep((long) remainingTime);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
-                nextDrawTime += drawInterval;
-                Thread.sleep((long) remainingTime);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
-        }
+        
     }
 
     void update()  {
         if (gameState==playState){
             player.update();
             player.falling();
-        }
-        for (int i =0;i<enemy.length;i++){
-            if (enemy[i]!=null){
+            for (int i =0;i<enemy.length;i++){
+                if (enemy[i]!=null){
                 enemy[i].update();
+                }
             }
         }
-
     }
     public void startingThread(){
         thread=new Thread(this);
@@ -210,6 +195,8 @@ public class GamePanel extends JPanel implements Runnable {
         player.reset();
         aSetter.setEnemy(enemy.length);
         aSetter.setObject();
+        ui.playTime=0;
+
     }
 }
 

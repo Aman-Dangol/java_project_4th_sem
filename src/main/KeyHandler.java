@@ -52,6 +52,7 @@ public class KeyHandler implements KeyListener {
         if (gp.gameState==gp.playState){
             if(e.getKeyCode()==KeyEvent.VK_W) {
                 upPressed = true;
+                downPressed=false;
             }
             if(e.getKeyCode()==KeyEvent.VK_S) {
                 downPressed = true;
@@ -123,6 +124,7 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_W) {
             upPressed = false;
+            downPressed=true;
         }
         if(e.getKeyCode()==KeyEvent.VK_S) {
             downPressed = false;

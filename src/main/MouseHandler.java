@@ -36,6 +36,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
                     bullet[gp.bulletIndex].onAir = true;
                     bullet[gp.bulletIndex].destination(X, Y);
                     gp.bulletIndex++;
+                    gp.soundSE(1);
                 } else {
                     gp.ui.showMessage("reload [R]");
                 }

@@ -18,6 +18,11 @@ public class Player extends Entity {
 
     public boolean hasGun=false;
 
+    public boolean leftCollision = false;
+    public boolean rightCollision = false;
+    public boolean upCollision = false;
+    public boolean downCollision = false;
+
 
 
 
@@ -229,7 +234,6 @@ public class Player extends Entity {
         }
 
         if (health == 0 ){
-            System.out.println("hame over");
             gp.gameState = gp.gameOverState;
         }
 
