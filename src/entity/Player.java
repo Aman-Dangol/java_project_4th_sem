@@ -19,10 +19,7 @@ public class Player extends Entity {
 
     public boolean hasGun=false;
 
-    public boolean leftCollision = false;
-    public boolean rightCollision = false;
-    public boolean upCollision = false;
-    public boolean downCollision = false;
+    public int killCount= 0;
 
 
 
@@ -34,7 +31,7 @@ public class Player extends Entity {
         type =0;
 
         this.keyH=keyH;
-        maxHealth =100;
+        maxHealth =10;
         health=maxHealth;
 
         screenX= gp.screenWidth/2;

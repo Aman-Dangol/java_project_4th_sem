@@ -84,6 +84,7 @@ public class UI   {
         playTime+=(double)1/60;
         g2.drawString("time : "+decimalFormat.format(playTime),gp.tileSize*15,65);
         g2.drawString("enemies : "+enemyCounter(),gp.tileSize*15,85);
+        g2.drawString("kills : "+gp.player.killCount,gp.tileSize*15,5);
         // do play state stuff
 
         if (messageOn) {
@@ -103,12 +104,30 @@ public class UI   {
         int y;
         String text ="Game Over";
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,110F));
-
-
         g2.setColor(Color.white);
         x= getXForCenterText(text);
         y=gp.tileSize*4;
         g2.drawString(text,x,y);
+        //kill count
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+        text = "kills :"+gp.player.killCount;
+        g2.setColor(Color.white);
+        x= getXForCenterText(text);
+        y+=gp.tileSize;
+        g2.drawString(text,x,y);
+
+        // playtime
+        text = "play Time :"+decimalFormat.format(playTime);
+        g2.setColor(Color.white);
+        x= getXForCenterText(text);
+        y+=gp.tileSize;
+        g2.drawString(text,x,y);
+
+
+
+
+
+
 
         //play again
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));

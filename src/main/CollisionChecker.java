@@ -304,6 +304,7 @@ public class CollisionChecker {
                         targets[i].contactEnemy();
                         if (targets[i].health<=0){
                             targets[i]=null;
+                            gp.player.killCount++;
                         }
 
                 }

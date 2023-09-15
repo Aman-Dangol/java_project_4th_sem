@@ -208,6 +208,8 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setEnemy(enemy.length);
         aSetter.setObject();
         ui.playTime=0;
+        waveCount =0;
+        player.killCount =0;
 
     }
     public void waveOver(){
@@ -218,7 +220,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         if (count == 0){
-            setWave();s
+            setWave();
 
         }
     }
