@@ -194,12 +194,13 @@ public class CollisionChecker {
                         }
                         break;
                     case "down":
-                        entity.solidArea.y += 48;
+                        entity.solidArea.y += gp.tileSize;
                         if (entity.solidArea.intersects(target[i].solidArea)) {
                             if (target[i]!=entity){
-                                entity.fall = false;
-
+                                System.out.println("false");
                             }
+                            entity.fall = false;
+
                         }
                         else {
                             entity.fall = true;

@@ -83,6 +83,7 @@ public class UI   {
         g2.drawString(" bullets : " + (gp.bullet.length-gp.bulletIndex), 70, 120);
         playTime+=(double)1/60;
         g2.drawString("time : "+decimalFormat.format(playTime),gp.tileSize*15,65);
+        g2.drawString("enemies : "+enemyCounter(),gp.tileSize*15,85);
         // do play state stuff
 
         if (messageOn) {
@@ -156,6 +157,16 @@ public class UI   {
 
     }
 
+    public int enemyCounter(){
+        int enemyNum =0;
+        for (int i = 0;i<gp.enemy.length;i++){
+            if (gp.enemy[i]!=null){
+                enemyNum++;
+            }
+        }
+        return enemyNum;
+    }
+
 
     public void drawTitleScreen(){
 
@@ -169,25 +180,25 @@ public class UI   {
          y=gp.tileSize;
         g2.drawString(instructions,x,y);
 //
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,50F));
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
 
         play= "New Game";
         x= getXForCenterText(play);
         y+=gp.tileSize*9;
         g2.setColor(Color.black);
         g2.drawString(play,x+2,y+2);
-        if (commandNum == 0){
+
+        g2.setColor(Color.GREEN.darker());
+        g2.drawString(play,x,y);if (commandNum == 0){
             g2.drawString(">",x-gp.tileSize,y);
         }
-        g2.setColor(Color.white);
-        g2.drawString(play,x,y);
 
-        quit= "quit";
+        quit= "Quit";
         x= getXForCenterText(quit);
         y+=gp.tileSize;
         g2.setColor(Color.black);
-        g2.drawString(quit,x+2,y+2);
-        g2.setColor(Color.white);
+        g2.drawString(quit,x+4,y+4);
+        g2.setColor(Color.GREEN.darker());
         g2.drawString(quit,x,y);if (commandNum == 1){
             g2.drawString(">",x-gp.tileSize,y);
         }

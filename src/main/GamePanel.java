@@ -31,7 +31,6 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     TileManager tileM;
     public int gameState;
-    public  int bulletIndex=0;
     public final int playState=1;
     public final int pauseState=2;
     public final  int gameOverState =3;
@@ -44,6 +43,10 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this,keyH);
 
     public Bullet[] bullet = new Bullet[20];
+    public  int bulletIndex=0;
+
+    public int waveCount = 0;
+
     public MouseHandler mouseH = new MouseHandler(bullet,this);
 
 
@@ -58,7 +61,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public SuperObject[] obj = new SuperObject[10] ;
 
-    public Entity[] enemy = new Entity[10];
+    public Entity[] enemy ;
+    public  int initialEnemyCount =1;
     Thread thread;
 
 
@@ -89,7 +93,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame(){
         aSetter.setObject();
-        aSetter.setEnemy(enemy.length);
+        setWave();
         playMusic(0);
         gameState=titleState;
     }
@@ -99,6 +103,13 @@ public class GamePanel extends JPanel implements Runnable {
             bullet[i]= new Bullet(player,this);
             i++;
         }
+    }
+
+    public void setWave(){
+        waveCount++;
+        ui.showMessage("Wave : "+ waveCount);
+        enemy = new Entity[initialEnemyCount * waveCount];
+        aSetter.setEnemy(enemy.length);
     }
 
 
@@ -164,6 +175,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     void update()  {
         if (gameState==playState){
+            waveOver();
             player.update();
             player.falling();
             for (int i =0;i<enemy.length;i++){
@@ -198,6 +210,19 @@ public class GamePanel extends JPanel implements Runnable {
         ui.playTime=0;
 
     }
+    public void waveOver(){
+        int count=0;
+        for (int i=0;i<enemy.length;i++){
+            if (enemy[i]!=null){
+                count++;
+            }
+        }
+        if (count == 0){
+            setWave();s
+
+        }
+    }
+
 }
 
 
