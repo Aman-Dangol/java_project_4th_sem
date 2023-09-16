@@ -307,8 +307,7 @@ public class Player extends Entity {
 
 
     public void reset(){
-        worldX =gp.tileSize*23;
-        worldY =gp.tileSize*23;
+        setDefaultValues();
         speed=4;
         weapon.gunLeft=null;
         weapon.gunRight=null;
