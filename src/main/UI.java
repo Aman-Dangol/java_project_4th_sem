@@ -20,7 +20,6 @@ public class UI   {
     public Graphics2D g2;
     BufferedImage health,stamina;
 
-    public boolean gameFinished=false;
     double playTime;
 
 
@@ -84,7 +83,7 @@ public class UI   {
         playTime+=(double)1/60;
         g2.drawString("time : "+decimalFormat.format(playTime),gp.tileSize*15,65);
         g2.drawString("enemies : "+enemyCounter(),gp.tileSize*15,85);
-        g2.drawString("kills : "+gp.player.killCount,gp.tileSize*15,5);
+        g2.drawString("kills : "+gp.player.killCount,gp.tileSize*15,105);
         // do play state stuff
 
         if (messageOn) {
@@ -117,17 +116,12 @@ public class UI   {
         g2.drawString(text,x,y);
 
         // playtime
+
         text = "play Time :"+decimalFormat.format(playTime);
         g2.setColor(Color.white);
         x= getXForCenterText(text);
         y+=gp.tileSize;
         g2.drawString(text,x,y);
-
-
-
-
-
-
 
         //play again
         g2.setFont(g2.getFont().deriveFont(Font.BOLD,50F));
@@ -154,12 +148,34 @@ public class UI   {
 
     public void drawPauseScreen(){
 
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,20F));
+
+
         String text = "Paused";
         int x= getXForCenterText(text);
-        int y=gp.screenHeight/2;
+        int y=gp.tileSize * 2;
         g2.drawString(text,x,y);
 
+        text= "Resume";
+        x= getXForCenterText(text);
+        y+=gp.tileSize*4;
+        g2.setColor(Color.black);
+
+        g2.drawString(text,x,y);if (commandNum == 0){
+            g2.drawString(">",x-gp.tileSize,y);
+        }
+
+        text= "Main Menu";
+        x= getXForCenterText(text);
+        y+=gp.tileSize;
+        g2.setColor(Color.black);
+        g2.drawString(text,x,y);if (commandNum == 1){
+            g2.drawString(">",x-gp.tileSize,y);
+        }
     }
+
+
+
 
     public int getXForCenterText(String text){
         int length= (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
