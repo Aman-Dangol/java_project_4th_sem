@@ -22,15 +22,14 @@ public class KeyHandler implements KeyListener {
          code = e.getKeyCode();
         if (gp.gameState== gp.titleState){
             drawTileState();
-        }
-
+        }else
         if (gp.gameState==gp.playState){
             drawPlayState();
 
-        }
+        }else
         if (gp.gameState == gp.pauseState){
             drawPauseState();
-        }
+        }else
         if (gp.gameState == gp.gameOverState){
             gameOver();
         }
@@ -40,6 +39,10 @@ public class KeyHandler implements KeyListener {
     }
 
     public void drawPauseState() {
+        if (code == KeyEvent.VK_ESCAPE){
+            gp.gameState = gp.playState;
+        }
+
         if (code==KeyEvent.VK_W){
         gp.ui.commandNum--;
         if (gp.ui.commandNum<0){
