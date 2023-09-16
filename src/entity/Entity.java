@@ -140,7 +140,7 @@ public class Entity {
 
     }
     public void update(){
-
+        System.out.println("from entity");
 
         setAction();
         collisionOn=false;

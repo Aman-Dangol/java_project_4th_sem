@@ -3,7 +3,6 @@ import main.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Player extends Entity {
     KeyHandler keyH;
@@ -31,7 +30,7 @@ public class Player extends Entity {
         type =0;
 
         this.keyH=keyH;
-        maxHealth =10;
+        maxHealth =100;
         health=maxHealth;
 
         screenX= gp.screenWidth/2;
@@ -49,8 +48,8 @@ public class Player extends Entity {
 
     }
     public void setDefaultValues(){
-       worldX =gp.tileSize*23;
-        worldY =gp.tileSize*23;
+       worldX =gp.tileSize*19;
+        worldY =gp.tileSize*10;
         speed=4;
 
     }
@@ -299,7 +298,7 @@ public class Player extends Entity {
     }
     public void contactEnemy(int enemyIndex){
         if (enemyIndex!=999){
-            if (invincible==false){
+            if (!invincible){
                 health-=10;
                 invincible=true;
             }

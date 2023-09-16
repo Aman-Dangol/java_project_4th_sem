@@ -5,7 +5,6 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-
     public GamePanel gp;
     int code;
     public boolean upPressed, downPressed, leftPressed, rightPressed,pick;
@@ -34,15 +33,12 @@ public class KeyHandler implements KeyListener {
             gameOver();
         }
 
-        //pause state
-
     }
 
     public void drawPauseState() {
         if (code == KeyEvent.VK_ESCAPE){
             gp.gameState = gp.playState;
         }
-
         if (code==KeyEvent.VK_W){
         gp.ui.commandNum--;
         if (gp.ui.commandNum<0){
@@ -55,7 +51,6 @@ public class KeyHandler implements KeyListener {
             if (gp.ui.commandNum>1){
                 gp.ui.commandNum=0;
             }
-
         }
         if (code==KeyEvent.VK_ENTER){
             if (gp.ui.commandNum==0){
@@ -65,7 +60,6 @@ public class KeyHandler implements KeyListener {
                 gp.gameState = gp.titleState;
             }
         }
-
     }
 
     public void drawPlayState() {
@@ -112,7 +106,7 @@ public class KeyHandler implements KeyListener {
         }
         if (code==KeyEvent.VK_ENTER){
             if (gp.ui.commandNum==0){
-                gp.reset();
+//                gp.reset();
                 gp.gameState=gp.playState;
 //                    gp.playMusic(0);
             }
@@ -147,7 +141,6 @@ public class KeyHandler implements KeyListener {
 
 
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_W) {

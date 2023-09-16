@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int screenHeight = rows * tileSize;
 
    public final int maxWorldCol =70;
-    public final int maxWorldRow=70;
+    public final int maxWorldRow=30;
 
 
     int FPS = 60;
@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     public SuperObject[] obj = new SuperObject[10] ;
 
     public Entity[] enemy ;
-    public  int initialEnemyCount =1;
+    public  int initialEnemyCount =5;
     Thread thread;
 
 

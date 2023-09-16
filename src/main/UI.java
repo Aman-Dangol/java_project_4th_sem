@@ -210,7 +210,7 @@ public class UI   {
 
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN,20F));
         g2.setColor(Color.white);
-        String instructions = "w,a,s,d -> move\n e-> pickup Gun r-> reload left click-> shoot p-> pause";
+        String instructions = "w,a,s,d -> move\n e-> pickup Gun r-> reload left click-> shoot ESC -> pause  enter->select";
          x = getXForCenterText(instructions);
          y=gp.tileSize;
         g2.drawString(instructions,x,y);

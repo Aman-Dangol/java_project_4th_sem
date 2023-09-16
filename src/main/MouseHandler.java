@@ -25,9 +25,6 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (gp.gameState== gp.titleState){
-
-        }
         if (gp.gameState== gp.playState){
             X = e.getX();
             Y = e.getY();
