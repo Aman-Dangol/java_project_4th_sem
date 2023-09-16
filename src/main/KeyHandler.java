@@ -73,7 +73,8 @@ public class KeyHandler implements KeyListener {
                 gp.bulletIndex=0;
             }
 
-        }else if (gp.gameState == gp.pauseState){
+        }
+        else if (gp.gameState == gp.pauseState){
 
             if(e.getKeyCode()==KeyEvent.VK_P){
                 gp.gameState= gp.playState;
